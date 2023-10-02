@@ -6,126 +6,147 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
+  ScrollView,
   Platform,
-  Image, // Importe Image para usar na exibição do ícone do WhatsApp
+  Alert,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Redirection from '../Redirection';
-import Register from '../Register';
 
 export default function ServiceProvider() {
   const navigation = useNavigation();
   const [dataNascimento, setDataNascimento] = useState('');
   const [cpf, setCpf] = useState('');
+  const [cnpj, setCnpj] = useState('');
   const [telefone, setTelefone] = useState('');
+  const [endereco, setEndereco] = useState('');
+  const [cidade, setCidade] = useState('');
+  const [estado, setEstado] = useState('');
+  const [cep, setCep] = useState('');
+
+  const handleRegister = () => {
+    // Implemente a lógica de validação dos campos aqui.
+    if (!dataNascimento || !cpf || !telefone) {
+      Alert.alert('Erro', 'Preencha todos os campos obrigatórios.');
+    } else {
+      // Lógica de registro bem-sucedido aqui.
+
+      // Exibe um alerta de sucesso após o registro.
+      Alert.alert('Sucesso', 'Profissional cadastrado com sucesso! Seja Livre.');
+      // Você pode redirecionar o usuário para a página desejada aqui.
+    }
+  };
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <View style={styles.container}>
-        <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
-          <Text style={styles.message_1}>Livre Serviços</Text>
-          <Text style={styles.message}>Seja Bem-Vindo(a) Profissional</Text>
-        </Animatable.View>
+      <ScrollView contentContainerStyle={{...styles.scrollContainer, marginTop: -60}}>
+        <View style={styles.container}>
+          <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
+            <Text style={styles.message_1}>Livre Serviços</Text>
+            <Text style={styles.message}>Seja Bem-Vindo(a) Profissional</Text>
+          </Animatable.View>
 
-        <View style={styles.containerFormRegister}>
-          <TextInput
-            placeholder="Nome do Profissional"
-            style={styles.input}
-          />
+          <View style={styles.containerFormRegister}>
+            <TextInput
+              placeholder="Nome do Profissional"
+              style={styles.input}
+            />
 
-          <TextInput
-            placeholder="Data de Nascimento (DD/MM/AAAA)"
-            style={styles.input}
-            onChangeText={(text) => setDataNascimento(text)}
-            value={dataNascimento}
-          />
+            <TextInput
+              placeholder="Data de Nascimento (DD/MM/AAAA)"
+              style={styles.input}
+              onChangeText={(text) => setDataNascimento(text)}
+              value={dataNascimento}
+            />
 
-          <TextInput
-            placeholder="Categoria de Servico"
-            style={styles.input}
-            onChangeText={(text) => setCpf(text)}
-            value={cpf}
-          />
+            <TextInput
+              placeholder="Endereço"
+              style={styles.input}
+              onChangeText={(text) => setEndereco(text)}
+              value={endereco}
+            />
 
-          <TextInput
-            keyboardType="Tempo de Experiencia do Profissional"
-            placeholder="CPF (Obrigatório)"
-            style={styles.input}
-            onChangeText={(text) => setCpf(text)}
-            value={cpf}
-          />
+            <TextInput
+              placeholder="Cidade"
+              style={styles.input}
+              onChangeText={(text) => setCidade(text)}
+              value={cidade}
+            />
 
-          <TextInput
-            placeholder="CNPJ"
-            style={styles.input}
-          />
+            <TextInput
+              keyboardType="numeric"
+              placeholder="CPF (Obrigatório)"
+              style={styles.input}
+              onChangeText={(text) => setCpf(text)}
+              value={cpf}
+            />
 
-          <TextInput
-            placeholder="Senha"
-            style={styles.input}
-            secureTextEntry={true}
-          />
+            <TextInput
+              keyboardType="numeric"
+              placeholder="CNPJ"
+              style={styles.input}
+              onChangeText={(text) => setCnpj(text)}
+              value={cnpj}
+            />
 
-          <TextInput
-            placeholder="Confirme a Senha"
-            style={styles.input}
-            secureTextEntry={true}
-          />
+            <TextInput
+              keyboardType="numeric"
+              placeholder="Telefone Fixo (com DDD)"
+              style={styles.input}
+              onChangeText={(text) => setTelefone(text)}
+              value={telefone}
+            />
 
-          <TextInput
-            placeholder="Informe a categoria de servico"
-            style={styles.input}
-          />
+            <TextInput
+              keyboardType="numeric"
+              placeholder="Celular (com DDD)"
+              style={styles.input}
+              onChangeText={(text) => setCep(text)}
+              value={cep}
+            />
 
-           <TextInput
-            placeholder="Tempo de experiencia"
-            keyboardType="numeric"
-            style={styles.input}
-          />
+            <TextInput
+              placeholder="Senha"
+              style={styles.input}
+              secureTextEntry={true}
+            />
 
-          <View style={styles.inputWithIcon}>
-            {/* <Image
-              source={require('')} // Substitua pelo caminho real para o ícone do WhatsApp
-              style={styles.icon}
-            /> */}
+            <TextInput
+              placeholder="Confirme a Senha"
+              style={styles.input}
+              secureTextEntry={true}
+            />
+
+            <TextInput
+              placeholder="Informe a categoria de serviço:"
+              style={styles.input}
+            />
+
+            <TextInput
+              placeholder="Tempo de experiência:"
+              keyboardType="numeric"
+              style={styles.input}
+            />           
           </View>
-
-          <TextInput
-            keyboardType="numeric"
-            placeholder="Telefone (com DDD)"
-            style={styles.input}
-            onChangeText={(text) => setTelefone(text)}
-            value={telefone}
-          />
-
-          <TouchableOpacity style={styles.buttonRegister} onPress={() => navigation.navigate("Redirection")}>
-            <Text style={styles.buttonRegisterText}>Registrar Profissional</Text>
-          </TouchableOpacity>
         </View>
-      </View>
+            <TouchableOpacity style={styles.buttonRegister} onPress={handleRegister}>
+              <Text style={styles.buttonRegisterText}>Registrar Profissional</Text>
+            </TouchableOpacity>
+      </ScrollView>
+        
 
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.footerItem}>
-          <Icon name="cog" size={24} />
-          <Text>Configuração</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.footerItem}>
-          <Icon name="home" size={24} />
-          <Text>Início</Text>
-        </TouchableOpacity>
-      </View>
     </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 0,
+    height: '100',
+    marginTop: -10,
     flex: 1,
     backgroundColor: '#38a69d',
     bottom: 0,
@@ -190,38 +211,5 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
-  },
-
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: '#ccc',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 60,
-  },
-
-  footerItem: {
-    alignItems: 'center',
-  },
-
-  inputWithIcon: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    height: 40,
-    marginBottom: 12,
-    fontSize: 16,
-    marginTop: 15,
-    paddingTop: 5,
-  },
-
-  icon: {
-    width: 20,
-    height: 20,
-    marginRight: 10,
   },
 });

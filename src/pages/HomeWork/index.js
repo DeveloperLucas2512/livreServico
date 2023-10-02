@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Picker } from '@react-native-picker/picker';
+import ModalDropdown from 'react-native-modal-dropdown';
 import Redirection from '../Redirection';
 
 export default function HomeWork() {
@@ -9,64 +9,78 @@ export default function HomeWork() {
   const [selectedService, setSelectedService] = useState('');
 
   const services = [
-    'Eletrica',
-    'Manutenção Residencial',
+    'Pedreiro',
+    'Encanador',
+    'Pintor',
+    'Jardineiro',
+    'Carpinteiro',
+    'Limpeza Residencial',
+    'Vidraceiro',
+    'Instalador e manutencao Ar Condicionado',
+    'Marcineiro',
+    'Serralheiro',
+    'Eletricista Residencial e Industrial',
+    'Servicos de Seguranca(Cameras e Alarmes)',
     'Manutenção Predial',
     'Mecanica Automotiva',
     'Mecanica Maquinas Pesadas',
   ];
 
+  const dropdownOptions = ['Selecione um serviço', ...services];
+
   return (
-    <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Digite o serviço que deseja encontrar ou acesse a busca rápida!</Text>
-      </View>
+    <TouchableWithoutFeedback>
+      <View style={styles.container}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Digite o serviço que deseja encontrar ou acesse a busca rápida!</Text>
+        </View>
 
-      <View style={styles.searchContainer}>
-        <TouchableOpacity style={styles.searchIcon}>
-          <Icon name="search" size={24} color="#777" />
-        </TouchableOpacity>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Digite sua pesquisa"
-          value={searchText}
-          onChangeText={(text) => setSearchText(text)}
+        <View style={styles.searchContainer}>
+          <TouchableOpacity style={styles.searchIcon}>
+            <Icon name="search" size={24} color="#777" />
+          </TouchableOpacity>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Digite sua pesquisa"
+            value={searchText}
+            onChangeText={(text) => setSearchText(text)}
+          />
+        </View>
+
+        <View style={styles.serviceContainer}>
+          <Text style={styles.quickGuide}>Guia Rápido</Text>
+          <ModalDropdown
+             options={dropdownOptions}
+             onSelect={(index) => setSelectedService(dropdownOptions[index])}
+            defaultValue={'Selecione um serviço'}
+            style={styles.servicePicker}
+            textStyle={styles.servicePickerText}
+            dropdownStyle={styles.servicePickerDropdown}
+            dropdownTextStyle={styles.servicePickerDropdownText}
+            adjustFrame={(style) => {
+                style.top += 2; 
+                return style;
+            }}
         />
-      </View>
-      
-      <Text style={styles.quickGuide}>Guia Rapido</Text>
-      {/* Campo de seleção de serviço */}
-      <View style={styles.serviceContainer}>
-    
-        <Picker
-          style={styles.servicePicker}
-          selectedValue={selectedService}
-          onValueChange={(itemValue, itemIndex) => setSelectedService(itemValue)}
-        >
-            
-          <Picker.Item style={styles.servicePickerTitle} label="Selecione um serviço que deseja: " value="" />
-          {services.map((service, index) => (
-            <Picker.Item key={index} label={service} value={service} />
-          ))}
-          <Text>Fechar</Text>
-        </Picker>
-      </View>
 
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.footerItem}>
-          <Icon name="shopping-cart" size={24} />
-          <Text>Pedidos</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.footerItem}>
-          <Icon name="user" size={24} />
-          <Text>Perfil</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.footerItem}>
-          <Icon name="home" size={24} />
-          <Text>Início</Text>
-        </TouchableOpacity>
+        </View>
+
+        <View style={styles.footer}>
+          <TouchableOpacity style={styles.footerItem}>
+            <Icon name="shopping-cart" size={24} />
+            <Text>Pedidos</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.footerItem}>
+            <Icon name="user" size={24} />
+            <Text>Perfil</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.footerItem}>
+            <Icon name="home" size={24} />
+            <Text>Início</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -82,7 +96,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
-    bottom: 20,
+    marginBottom: 20, // Substitua "bottom" por "marginBottom"
     paddingTop: 20,
     marginTop: 30,
   },
@@ -91,40 +105,48 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 16,
     color: 'white',
+    textAlign: 'center', // Centralize o texto
   },
-  serviceContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 40,
-    borderWidth: 1,  // Largura da borda
-    borderColor: '#ccc',  // Cor da borda
-  },
-
   quickGuide: {
     fontSize: 12,
     color: 'blue',
     fontWeight: 'bold',
-    marginTop: 50,
-    bottom: -40,
-
-
-
+    marginTop: 10, // Ajuste a margem superior
+    alignSelf: 'center', // Centralize o texto
   },
-  
+  serviceContainer: {
+    left: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    justifyContent: 'space-between',
+  },
   servicePicker: {
     flex: 1,
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 8,
   },
-
-  servicePickerTitle: {
+  servicePickerText: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: 'black',
+    paddingVertical: 10,
+    paddingLeft: 10,
   },
+  servicePickerDropdown: {
+    marginLeft: -50,
+    alignItems: 'center',
+    marginTop: 2,
+    borderWidth: 3,
+    borderColor: '#ccc',
+    borderRadius: 6,
+  },
+  servicePickerDropdownText: {
+    fontSize: 16,
+    paddingVertical: 10,
+    paddingLeft: 10, 
 
+  },
   searchContainer: {
     backgroundColor: '#ccc',
     borderRadius: 8,

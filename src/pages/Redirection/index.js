@@ -2,9 +2,13 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
+import CurrentLocalization from '../CurrentLocalization';
+import * as Location from 'expo-location';
 import ServiceProvider from '../ServiceProvider';
 import HomeWork from '../HomeWork';
 import Welcome from '../welcome';
+import informationLocalization from '../CurrentLocalization/informationLocalization';
+
 
 export default function Redirection() {
   const navigation = useNavigation();
