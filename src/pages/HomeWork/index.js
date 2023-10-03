@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ModalDropdown from 'react-native-modal-dropdown';
+import { useNavigation } from '@react-navigation/native';
 import Redirection from '../Redirection';
 
 export default function HomeWork() {
+  const navigation = useNavigation();
   const [searchText, setSearchText] = useState('');
   const [selectedService, setSelectedService] = useState('');
 
@@ -23,6 +25,7 @@ export default function HomeWork() {
     'Servicos de Seguranca(Cameras e Alarmes)',
     'Manutenção Predial',
     'Mecanica Automotiva',
+    'Marido de Aluguel',
     'Mecanica Maquinas Pesadas',
   ];
 
@@ -74,10 +77,12 @@ export default function HomeWork() {
             <Icon name="user" size={24} />
             <Text>Perfil</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.footerItem}>
-            <Icon name="home" size={24} />
-            <Text>Início</Text>
-          </TouchableOpacity>
+          <TouchableOpacity 
+        style={styles.footerItem} 
+        onPress={() => navigation.navigate("Welcome")}>
+          <Icon name="home" size={24} />
+          <Text>Início</Text>
+        </TouchableOpacity>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -163,6 +168,11 @@ const styles = StyleSheet.create({
   },
   searchIcon: {
     padding: 10,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
   },
   footer: {
     flexDirection: 'row',

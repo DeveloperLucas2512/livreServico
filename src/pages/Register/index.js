@@ -1,88 +1,136 @@
-import React from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import React, { useState, useRef } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  ScrollView,
+  Platform,
+} from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Redirection from '../Redirection';
 
 export default function Register() {
   const navigation = useNavigation();
+  const [nome, setNome] = useState('');
+  const [sobrenome, setSobrenome] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [confirmaSenha, setConfirmaSenha] = useState('');
+
+  // Adicione refs para os campos de entrada
+  const sobrenomeRef = useRef();
+  const emailRef = useRef();
+  const senhaRef = useRef();
+  const confirmaSenhaRef = useRef();
+
+  const handleRegister = () => {
+    if (!nome || !sobrenome || !email || !senha || !confirmaSenha) {
+      Alert.alert('Campos Obrigatórios', 'Preencha todos os campos obrigatórios.');
+    } else {
+      setTimeout(() => {
+        Alert.alert('Registro Salvo', 'Registro salvo com sucesso');
+        navigation.navigate('Redirection');
+      }, 2000);
+    }
+  };
+
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
+    <ScrollView
+      contentContainerStyle={styles.container}
+      keyboardShouldPersistTaps="handled"
     >
-      <View style={styles.container}>
-        <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
-          <Text style={styles.message}>Seja Bem-Vindo(a)</Text>
-          <Text style={styles.message}>Livre Serviços</Text>
-        </Animatable.View>
+      <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
+        <Text style={styles.message}>Seja Bem-Vindo(a)</Text>
+        <Text style={styles.message}>Livre Serviços</Text>
+      </Animatable.View>
 
-        <View style={styles.containerFormRegister}>
-          <TextInput
-            placeholder="Digite seu nome"
-            style={styles.input}
-          />
+      <View style={styles.containerFormRegister}>
+        <TextInput
+          placeholder="Digite seu nome"
+          style={styles.input}
+          value={nome}
+          onChangeText={(text) => setNome(text)}
+          onSubmitEditing={() => sobrenomeRef.current.focus()}
+        />
+        <TextInput
+          placeholder="Sobrenome"
+          style={styles.input}
+          value={sobrenome}
+          onChangeText={(text) => setSobrenome(text)}
+          ref={sobrenomeRef}
+          blurOnSubmit={false}
+          onSubmitEditing={() => emailRef.current.focus()}
+        />
+        <TextInput
+          placeholder="Email"
+          style={styles.input}
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          ref={emailRef}
+          blurOnSubmit={false}
+          onSubmitEditing={() => senhaRef.current.focus()}
+        />
+        <TextInput
+          placeholder="Senha"
+          style={styles.input}
+          secureTextEntry
+          value={senha}
+          onChangeText={(text) => setSenha(text)}
+          ref={senhaRef}
+          blurOnSubmit={false}
+          onSubmitEditing={() => confirmaSenhaRef.current.focus()}
+        />
+        <TextInput
+          placeholder="Confirme sua Senha"
+          style={styles.input}
+          secureTextEntry
+          value={confirmaSenha}
+          onChangeText={(text) => setConfirmaSenha(text)}
+          ref={confirmaSenhaRef}
+          onSubmitEditing={handleRegister}
+        />
 
-          <TextInput
-            placeholder="Sobrenome"
-            style={styles.input}
-          />
-
-          <TextInput
-            placeholder="Email"
-            style={styles.input}
-          />
-
-          <TextInput
-            placeholder="Senha"
-            style={styles.input}
-          />
-
-          <TextInput
-            placeholder="Confirme sua Senha"
-            style={styles.input}
-          />
-
-          <TouchableOpacity style={styles.buttonregister}
-          onPress={() => navigation.navigate("Redirection")}>
-            <Text style={styles.buttonregisterTitle}>Registrar</Text>
-          </TouchableOpacity>
-
-        </View>
+        <TouchableOpacity style={styles.buttonregister} onPress={handleRegister}>
+          <Text style={styles.buttonregisterTitle}>Registrar</Text>
+        </TouchableOpacity>
       </View>
-     
+
       <View style={styles.footer}>
         <TouchableOpacity style={styles.footerItem}>
           <Icon name="shopping-cart" size={24} />
           <Text>Pedidos</Text>
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.footerItem}>
-          <Icon name="user" size={24} />
-          <Text>Perfil</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.footerItem}>
-          <Icon name="cog" size={24} /> 
+          <Icon name="cog" size={24} />
           <Text>Configuração</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerItem}>
+
+        <TouchableOpacity
+          style={styles.footerItem}
+          onPress={() => navigation.navigate('Welcome')}
+        >
           <Icon name="home" size={24} />
           <Text>Início</Text>
         </TouchableOpacity>
       </View>
-    </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: '#38a69d',
   },
-
   containerHeader: {
     marginTop: '14%',
-    marginBottom: '8%', // Corrigido: substituído 'margimBottom' por 'marginBottom'
+    marginBottom: '8%',
     fontWeight: 'bold',
     paddingStart: '8%',
   },
@@ -93,7 +141,6 @@ const styles = StyleSheet.create({
     marginTop: 50,
     alignSelf: 'center',
   },
-
   containerFormRegister: {
     backgroundColor: '#fff',
     flex: 1,
@@ -116,7 +163,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingTop: 5,
   },
-
   buttonregister: {
     backgroundColor: 'green',
     width: '100%',
@@ -125,23 +171,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   buttonregisterTitle: {
     color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
   },
-
-  buttonRegister: {
-    marginTop: 8,
-    alignSelf: 'center',
-  },
-
-  buttonRegisterText: {
-    color: '#a1a1a1',
-    fontWeight: 'bold',
-  },
-
   footer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -157,4 +191,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-

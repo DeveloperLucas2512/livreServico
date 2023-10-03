@@ -33,8 +33,9 @@ import { View,
         style={styles.containerFormHome}
       >
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Livre Serviços</Text>
+          <Text style={styles.title}>Livre Serviços Imediatos</Text>
         </View>
+
         <View style={styles.subTitleContainer}>
           <Text style={styles.subTitle}>Seja Livre!!</Text>
         </View>
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   containerFormHome: {
-    flex: 1,
+    flex: 2,
     backgroundColor: '#fff',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,

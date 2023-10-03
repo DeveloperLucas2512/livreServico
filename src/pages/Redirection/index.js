@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import CurrentLocalization from '../CurrentLocalization';
 import * as Location from 'expo-location';
 import ServiceProvider from '../ServiceProvider';
@@ -49,7 +50,27 @@ export default function Redirection() {
           </TouchableOpacity>
         </View>
       </Animatable.View>
-    </View>
+    
+        <View style={styles.footer}>
+        <TouchableOpacity style={styles.footerItem}>
+        <Icon name="shopping-cart" size={24} />
+        <Text>Pedidos</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.footerItem}>
+        <Icon name="cog" size={24} />
+        <Text>Configuração</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+        style={styles.footerItem}
+        onPress={() => navigation.navigate('Welcome')}
+        >
+        <Icon name="home" size={24} />
+        <Text>Início</Text>
+        </TouchableOpacity>
+        </View>
+        </View>
   );
 }
 
@@ -57,6 +78,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#38a69d',
+  },
+
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#ccc',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 60,
+  },
+  footerItem: {
+    alignItems: 'center',
   },
 
   titleContainer: {
