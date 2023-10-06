@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Redirection from '../Redirection';
 
+
 export default function Register() {
   const navigation = useNavigation();
   const [nome, setNome] = useState('');
@@ -29,14 +30,12 @@ export default function Register() {
   const confirmaSenhaRef = useRef();
 
   const handleRegister = () => {
-    if (!nome || !sobrenome || !email || !senha || !confirmaSenha) {
-      Alert.alert('Campos Obrigatórios', 'Preencha todos os campos obrigatórios.');
-    } else {
+   
       setTimeout(() => {
         Alert.alert('Registro Salvo', 'Registro salvo com sucesso');
         navigation.navigate('Redirection');
-      }, 2000);
-    }
+      }, 10);
+    
   };
 
   return (
@@ -51,20 +50,11 @@ export default function Register() {
 
       <View style={styles.containerFormRegister}>
         <TextInput
-          placeholder="Digite seu nome"
+          placeholder="Digite seu nome completo"
           style={styles.input}
           value={nome}
           onChangeText={(text) => setNome(text)}
           onSubmitEditing={() => sobrenomeRef.current.focus()}
-        />
-        <TextInput
-          placeholder="Sobrenome"
-          style={styles.input}
-          value={sobrenome}
-          onChangeText={(text) => setSobrenome(text)}
-          ref={sobrenomeRef}
-          blurOnSubmit={false}
-          onSubmitEditing={() => emailRef.current.focus()}
         />
         <TextInput
           placeholder="Email"
@@ -76,7 +66,16 @@ export default function Register() {
           onSubmitEditing={() => senhaRef.current.focus()}
         />
         <TextInput
-          placeholder="Senha"
+          placeholder="Celular"
+          style={styles.input}
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          ref={emailRef}
+          blurOnSubmit={false}
+          onSubmitEditing={() => senhaRef.current.focus()}
+        />
+        <TextInput
+          placeholder="Crie uma Senha"
           style={styles.input}
           secureTextEntry
           value={senha}
@@ -95,7 +94,8 @@ export default function Register() {
           onSubmitEditing={handleRegister}
         />
 
-        <TouchableOpacity style={styles.buttonregister} onPress={handleRegister}>
+        <TouchableOpacity style={styles.buttonregister} 
+         onPress={handleRegister}>
           <Text style={styles.buttonregisterTitle}>Registrar</Text>
         </TouchableOpacity>
       </View>
@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   buttonregister: {
+    marginTop: 50,
     backgroundColor: 'green',
     width: '100%',
     borderRadius: 10,

@@ -5,10 +5,12 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import { useNavigation } from '@react-navigation/native';
 import Redirection from '../Redirection';
 
+
 export default function HomeWork() {
   const navigation = useNavigation();
   const [searchText, setSearchText] = useState('');
   const [selectedService, setSelectedService] = useState('');
+
 
   const services = [
     'Pedreiro',
@@ -16,6 +18,7 @@ export default function HomeWork() {
     'Pintor',
     'Jardineiro',
     'Carpinteiro',
+    'Consertos Gerais',
     'Limpeza Residencial',
     'Vidraceiro',
     'Instalador e manutencao Ar Condicionado',
@@ -53,20 +56,36 @@ export default function HomeWork() {
         <View style={styles.serviceContainer}>
           <Text style={styles.quickGuide}>Guia Rápido</Text>
           <ModalDropdown
-             options={dropdownOptions}
-             onSelect={(index) => setSelectedService(dropdownOptions[index])}
+            options={dropdownOptions}
+            onSelect={(index) => {
+              setSelectedService(dropdownOptions[index]);
+              setShowLocationButtons(true); // Mostra os botões quando o dropdown é selecionado
+            }}
             defaultValue={'Selecione um serviço'}
             style={styles.servicePicker}
             textStyle={styles.servicePickerText}
             dropdownStyle={styles.servicePickerDropdown}
             dropdownTextStyle={styles.servicePickerDropdownText}
             adjustFrame={(style) => {
-                style.top += 2; 
-                return style;
+              style.top += 2; 
+              return style;
             }}
-        />
-
+          />
         </View>
+
+        {showLocationButtons && (
+          <View style={styles.locationButtonContainer}>
+            <TouchableOpacity style={styles.locationButton}>
+              <Text style={styles.titleLocation}>Buscar Profissional usando</Text>
+              <Text style={styles.titleLocation}>minha localização atual</Text>
+            </TouchableOpacity>
+            <Text style={styles.OptionsSearch}>OU</Text>
+            <TouchableOpacity style={styles.locationButton}>
+              <Text style={styles.titleLocation}>Buscar Profissional usando</Text>
+              <Text style={styles.titleLocation}> outra localização</Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
         <View style={styles.footer}>
           <TouchableOpacity style={styles.footerItem}>
@@ -78,11 +97,11 @@ export default function HomeWork() {
             <Text>Perfil</Text>
           </TouchableOpacity>
           <TouchableOpacity 
-        style={styles.footerItem} 
-        onPress={() => navigation.navigate("Welcome")}>
-          <Icon name="home" size={24} />
-          <Text>Início</Text>
-        </TouchableOpacity>
+            style={styles.footerItem} 
+            onPress={() => navigation.navigate("Welcome")}>
+            <Icon name="home" size={24} />
+            <Text>Início</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -112,6 +131,21 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center', // Centralize o texto
   },
+
+  titleLocation: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    color: 'white',
+    textAlign: 'center', // Centralize o texto
+  },
+
+  OptionsSearch: {
+    marginTop: 10,
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+
   quickGuide: {
     fontSize: 12,
     color: 'blue',
@@ -187,5 +221,16 @@ const styles = StyleSheet.create({
   },
   footerItem: {
     alignItems: 'center',
+  },
+
+  locationButtonContainer: {
+    marginTop: 20, // Ajuste a margem superior conforme necessário
+    alignItems: 'center',
+  },
+  locationButton: {
+    backgroundColor: 'green', // Estilo do botão
+    padding: 10,
+    borderRadius: 8,
+    marginTop: 10,
   },
 });

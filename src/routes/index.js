@@ -8,6 +8,8 @@ import Redirection from '../pages/Redirection';
 import CurrentLocalization from '../pages/CurrentLocalization';
 import ServiceProvider from '../pages/ServiceProvider';
 import informationLocalization from '../pages/CurrentLocalization/informationLocalization';
+import indexForm from '../pages/ServiceProvider/indexForm';
+import PaymentMethods from '../pages/PaymentMethods';
 
 const Stack = createNativeStackNavigator();
 
@@ -59,7 +61,19 @@ export default function Routes() {
         options={{ headerShown: false }}
       />
 
-    </Stack.Navigator>
+      <Stack.Screen
+        name="indexForm"
+        component={indexForm}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="PaymentMethods"
+        component={PaymentMethods}
+        options={{ headerShown: false }}
+      />
+
+    </Stack.Navigator> 
 
     
   );
