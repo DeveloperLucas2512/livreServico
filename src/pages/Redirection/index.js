@@ -1,18 +1,31 @@
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import CurrentLocalization from '../CurrentLocalization';
-import * as Location from 'expo-location';
-import ServiceProvider from '../ServiceProvider';
-import HomeWork from '../HomeWork';
-import Welcome from '../welcome';
-import informationLocalization from '../CurrentLocalization/informationLocalization';
-
 
 export default function Redirection() {
   const navigation = useNavigation();
+  const [isServiceProvider, setIsServiceProvider] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+
+  const handleServiceProviderPress = () => {
+    setIsServiceProvider(true);
+  };
+
+  const handleRegisteredResponse = (response) => {
+    if (response === 'yes') {
+      setIsRegistered(true);
+    } else {
+      setIsRegistered(false);
+      navigation.navigate('ServiceProvider'); // Navigate to ServiceProvider screen
+    }
+  };
+
+  const handleActiveResponse = (response) => {
+    setIsActive(response === 'yes');
+  };
 
   return (
     <View style={styles.container}>
@@ -24,18 +37,53 @@ export default function Redirection() {
 
       <Animatable.View animation="fadeInUp" style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <TouchableOpacity style={styles.modalButton}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigation.navigate('HomeWork')}>
-              <Text style={styles.modalButtonText}>Cliente</Text>
-            </TouchableOpacity>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.modalButton}
-            onPress={() => navigation.navigate('ServiceProvider')}>
-            <Text style={styles.modalButtonText}>Prestador de Serviços</Text>
-          </TouchableOpacity>
+          {!isServiceProvider && (
+            <>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={() => navigation.navigate('HomeWork')}>
+                <Text style={styles.modalButtonText}>Cliente</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={handleServiceProviderPress}>
+                <Text style={styles.modalButtonText}>Prestador de Serviços</Text>
+              </TouchableOpacity>
+            </>
+          )}
+
+          {isServiceProvider && !isRegistered && (
+            <>
+              <Text>Ja é cadastrado?</Text>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={() => handleRegisteredResponse('yes')}>
+                <Text style={styles.modalButtonText}>Sim</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={() => handleRegisteredResponse('no')}>
+                <Text style={styles.modalButtonText}>Não</Text>
+              </TouchableOpacity>
+            </>
+          )}
+
+          {isServiceProvider && isRegistered && !isActive && (
+            <>
+              <Text>Deseja ativar seu status para disponível?</Text>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={() => handleActiveResponse('yes')}>
+                <Text style={styles.modalButtonText}>Sim</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={() => handleActiveResponse('no')}>
+                <Text style={styles.modalButtonText}>Não</Text>
+              </TouchableOpacity>
+            </>
+          )}
+
           <TouchableOpacity
             style={styles.modalCloseButton}
             onPress={() => navigation.navigate('Welcome')}>

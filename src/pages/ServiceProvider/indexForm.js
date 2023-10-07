@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Linking } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'; // Para ícones do FontAwesome
+
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import { Alert } from 'react-native';
 import PaymentMethods from '../PaymentMethods';
-
 
 export default function ServiceProvider() {
   const navigation = useNavigation();
@@ -43,7 +43,7 @@ export default function ServiceProvider() {
 
 
       <View style={styles.containerFormRegister}>
-        <Text style={styles.title}>Termine de completar seu cadastro</Text>
+        <Text style={styles.title}>Finalize seu cadastro</Text>
 
         <Text style={styles.titleTop}>Categoria de serviço</Text>
         <TextInput
@@ -118,7 +118,7 @@ export default function ServiceProvider() {
         <Text style={styles.label}>(informe pelo menos uma rede social)</Text>
         <View style={styles.socialMediaContainer}>
           <View style={styles.socialMediaInputContainer}>
-            <Icon name="facebook" size={24} style={styles.icon} onPress={() => openSocialMedia(redeSocialFacebook)} />
+            <FontAwesomeIcon name="facebook" size={24} style={styles.icon} onPress={() => openSocialMedia(redeSocialFacebook)} />
             <TextInput
               placeholder="Facebook"
               style={styles.socialMediaInput}
@@ -127,7 +127,7 @@ export default function ServiceProvider() {
             />
           </View>
           <View style={styles.socialMediaInputContainer}>
-            <Icon name="Instagram" size={24} style={styles.icon} onPress={() => openSocialMedia(redeSocialInstagram)} />
+            <FontAwesomeIcon name="instagram" size={24} style={styles.icon} onPress={() => openSocialMedia(redeSocialInstagram)} />
             <TextInput
               placeholder="Instagram"
               style={styles.socialMediaInput}
@@ -137,7 +137,7 @@ export default function ServiceProvider() {
             />
           </View>
           <View style={styles.socialMediaInputContainer}>
-            <Icon name="linkedin" size={24} style={styles.icon} onPress={() => openSocialMedia(redeSocialLinkedin)} />
+            <FontAwesomeIcon name="linkedin" size={24} style={styles.icon} onPress={() => openSocialMedia(redeSocialLinkedin)} />
             <TextInput
               placeholder="LinkedIn"
               style={styles.socialMediaInput}
@@ -146,7 +146,7 @@ export default function ServiceProvider() {
             />
           </View>
           <View style={styles.socialMediaInputContainer}>
-            <Icon name="youtube" size={24} style={styles.icon} onPress={() => openSocialMedia(redeSocialYouTube)} />
+            <FontAwesomeIcon name="youtube" size={24} style={styles.icon} onPress={() => openSocialMedia(redeSocialYouTube)} />
             <TextInput
               placeholder="YouTube"
               style={styles.socialMediaInput}
@@ -155,7 +155,7 @@ export default function ServiceProvider() {
             />
           </View>
           <View style={styles.socialMediaInputContainer}>
-            <Icon name="twitter" size={24} style={styles.icon} onPress={() => openSocialMedia(redeSocialTwitter)} />
+            <FontAwesomeIcon name="twitter" size={24} style={styles.icon} onPress={() => openSocialMedia(redeSocialTwitter)} />
             <TextInput
               placeholder="Twitter"
               style={styles.socialMediaInput}

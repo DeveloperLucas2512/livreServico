@@ -5,12 +5,13 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import { useNavigation } from '@react-navigation/native';
 import Redirection from '../Redirection';
 
-
 export default function HomeWork() {
   const navigation = useNavigation();
   const [searchText, setSearchText] = useState('');
   const [selectedService, setSelectedService] = useState('');
-
+  const [showLocationButtons, setShowLocationButtons] = useState(false);
+  const [useCustomLocation, setUseCustomLocation] = useState(false);
+  const [customLocation, setCustomLocation] = useState('');
 
   const services = [
     'Pedreiro',
@@ -59,7 +60,7 @@ export default function HomeWork() {
             options={dropdownOptions}
             onSelect={(index) => {
               setSelectedService(dropdownOptions[index]);
-              setShowLocationButtons(true); // Mostra os botões quando o dropdown é selecionado
+              setShowLocationButtons(true);
             }}
             defaultValue={'Selecione um serviço'}
             style={styles.servicePicker}
@@ -67,7 +68,7 @@ export default function HomeWork() {
             dropdownStyle={styles.servicePickerDropdown}
             dropdownTextStyle={styles.servicePickerDropdownText}
             adjustFrame={(style) => {
-              style.top += 2; 
+              style.top += 2;
               return style;
             }}
           />
@@ -75,15 +76,41 @@ export default function HomeWork() {
 
         {showLocationButtons && (
           <View style={styles.locationButtonContainer}>
-            <TouchableOpacity style={styles.locationButton}>
+            <TouchableOpacity
+              style={styles.locationButton}
+              onPress={() => setUseCustomLocation(false)} // Definir useCustomLocation como false para usar a localização atual
+            >
               <Text style={styles.titleLocation}>Buscar Profissional usando</Text>
               <Text style={styles.titleLocation}>minha localização atual</Text>
             </TouchableOpacity>
             <Text style={styles.OptionsSearch}>OU</Text>
-            <TouchableOpacity style={styles.locationButton}>
+            <TouchableOpacity
+              style={styles.locationButton}
+              onPress={() => setUseCustomLocation(true)} // Definir useCustomLocation como true para usar outra localização
+            >
               <Text style={styles.titleLocation}>Buscar Profissional usando</Text>
-              <Text style={styles.titleLocation}> outra localização</Text>
+              <Text style={styles.titleLocation}>outra localização</Text>
             </TouchableOpacity>
+            {useCustomLocation && ( // Renderizar o campo de entrada de texto somente se useCustomLocation for verdadeiro
+              <View style={styles.customLocationContainer}>
+                <TextInput
+                  style={styles.customLocationInput}
+                  placeholder="Digite a localização nova"
+                  value={customLocation}
+                  onChangeText={(text) => setCustomLocation(text)}
+                />
+                <TouchableOpacity
+                  style={styles.customLocationButton}
+                  onPress={() => {
+                    // Adicione aqui a lógica para buscar profissionais com a localização inserida pelo usuário
+                    // Você pode usar a variável 'customLocation' para obter a localização inserida pelo usuário
+                  }}
+                >
+                  <Icon name="search" size={16} color="#fff" />
+                  <Text style={styles.customLocationButtonText}>Buscar</Text>
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
         )}
 
@@ -96,9 +123,10 @@ export default function HomeWork() {
             <Icon name="user" size={24} />
             <Text>Perfil</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
-            style={styles.footerItem} 
-            onPress={() => navigation.navigate("Welcome")}>
+          <TouchableOpacity
+            style={styles.footerItem}
+            onPress={() => navigation.navigate("Welcome")}
+          >
             <Icon name="home" size={24} />
             <Text>Início</Text>
           </TouchableOpacity>
@@ -120,7 +148,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
-    marginBottom: 20, // Substitua "bottom" por "marginBottom"
+    marginBottom: 20,
     paddingTop: 20,
     marginTop: 30,
   },
@@ -129,7 +157,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 16,
     color: 'white',
-    textAlign: 'center', // Centralize o texto
+    textAlign: 'center',
   },
 
   titleLocation: {
@@ -137,7 +165,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 16,
     color: 'white',
-    textAlign: 'center', // Centralize o texto
+    textAlign: 'center',
   },
 
   OptionsSearch: {
@@ -150,8 +178,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'blue',
     fontWeight: 'bold',
-    marginTop: 10, // Ajuste a margem superior
-    alignSelf: 'center', // Centralize o texto
+    marginTop: 10,
+    alignSelf: 'center',
   },
   serviceContainer: {
     left: 0,
@@ -183,8 +211,7 @@ const styles = StyleSheet.create({
   servicePickerDropdownText: {
     fontSize: 16,
     paddingVertical: 10,
-    paddingLeft: 10, 
-
+    paddingLeft: 10,
   },
   searchContainer: {
     backgroundColor: '#ccc',
@@ -224,13 +251,38 @@ const styles = StyleSheet.create({
   },
 
   locationButtonContainer: {
-    marginTop: 20, // Ajuste a margem superior conforme necessário
+    marginTop: 20,
     alignItems: 'center',
   },
   locationButton: {
-    backgroundColor: 'green', // Estilo do botão
+    backgroundColor: 'green',
     padding: 10,
     borderRadius: 8,
     marginTop: 10,
+  },
+  customLocationContainer: {
+    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  customLocationInput: {
+    flex: 1,
+    marginRight: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    fontSize: 16,
+  },
+  customLocationButton: {
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  customLocationButtonText: {
+    color: 'white',
+    marginLeft: 5,
   },
 });

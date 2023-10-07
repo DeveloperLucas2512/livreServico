@@ -10,6 +10,7 @@ import ServiceProvider from '../pages/ServiceProvider';
 import informationLocalization from '../pages/CurrentLocalization/informationLocalization';
 import indexForm from '../pages/ServiceProvider/indexForm';
 import PaymentMethods from '../pages/PaymentMethods';
+import UpLoadImage from '../pages/UpLoadImage';
 
 const Stack = createNativeStackNavigator();
 
@@ -70,6 +71,12 @@ export default function Routes() {
       <Stack.Screen
         name="PaymentMethods"
         component={PaymentMethods}
+        options={{ headerShown: false }}
+      />
+  
+      <Stack.Screen
+        name="UpLoadImage"
+        component={UpLoadImage}
         options={{ headerShown: false }}
       />
 
