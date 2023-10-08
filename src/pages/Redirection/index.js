@@ -3,11 +3,6 @@ import { View, Text, TouchableOpacity, StyleSheet, Alert, Modal } from 'react-na
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import UpLoadImage from '../UpLoadImage';
-import UpLoadImageGeneralServices from '../UpLoadImageGeneralServices';
-import UpLoadImageAnalyst from '../UpLoadImageAnalyst';
-import UpLoadImageMason from '../UpLoadImageMason';
-import UpLoadImageElectrician from '../UpLoadImageElectrician';
 
 export default function Redirection() {
   const navigation = useNavigation();
@@ -15,8 +10,6 @@ export default function Redirection() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [configModalVisible, setConfigModalVisible] = useState(false); 
-   const [closeConfigModal, setCloseConfigModal] = useState(false); 
 
   const handleServiceProviderPress = () => {
     setIsServiceProvider(true);
@@ -35,11 +28,9 @@ export default function Redirection() {
     if (response === 'yes') {
       setIsActive(true);
       setShowModal(true);
-      
     } else {
       setIsActive(false);
       navigation.goBack();
-      
     }
   };
 
@@ -118,7 +109,6 @@ export default function Redirection() {
               style={styles.modalButton}
               onPress={() => {
                 setShowModal(false);
-                // navigation.goBack();
                 navigation.navigate('Welcome');
               }}>
               <Text style={styles.modalButtonText}>OK</Text>
@@ -127,8 +117,6 @@ export default function Redirection() {
         </View>
       </Modal>
 
-      
-
       <View style={styles.footer}>
         <TouchableOpacity
           style={styles.footerItem}
@@ -136,11 +124,10 @@ export default function Redirection() {
           <Icon name="home" size={24} />
           <Text>Início</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerItem}
-        onPress={() => navigation.navigate('SignIn')}>
-            <Icon name="user" size={24} />
-            <Text>Perfil</Text>
-          </TouchableOpacity>
+        <TouchableOpacity style={styles.footerItem} onPress={() => navigation.navigate('SignIn')}>
+          <Icon name="user" size={24} />
+          <Text>Perfil</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -180,11 +167,12 @@ const styles = StyleSheet.create({
     bottom: 50,
   },
   modalContainer: {
-    marginTop: 250,
+    minHeight: 250,
+    marginTop: 200,
     alignSelf: 'center',
     width: '80%',
     backgroundColor: '#fff',
-    flex: 2,
+    flex: 1,
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     borderBottomLeftRadius: 50,
@@ -227,35 +215,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  goBackButton: {
-    position: 'absolute',
-    top: 10,
-    left: 10,
-    backgroundColor: '#333',
-    borderRadius: 50,
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  configModalContent: {
-    backgroundColor: '#fff',
-    padding: 20,     
-    alignItems: 'center',
-    borderRadius: 10,
-    height: '50%',    
-    width: '100%', 
-  },
-  closeConfigModalText: {
-    color: 'blue',
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  configModalText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
 });
-

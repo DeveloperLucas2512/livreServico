@@ -5,6 +5,9 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  ScrollView,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
@@ -16,72 +19,78 @@ export default function SignIn() {
   const [rememberAccess, setRememberAccess] = useState(false);
 
   return (
-    <View style={styles.container}>
-      <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
-        <Text style={styles.message}>Seja Bem-Vindo(a)</Text>
-        <Text style={styles.message}>Livre Serviços</Text>
-      </Animatable.View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+        style={styles.container}
+      >
+        <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
+          <Text style={styles.message}>Seja Bem-Vindo(a)</Text>
+          <Text style={styles.message}>Livre Serviços</Text>
+        </Animatable.View>
 
-      <Animatable.View animation="fadeInUp" style={styles.containerFormLogin}>
-        <Text style={styles.titleLogin}>Email</Text>
-        <TextInput placeholder="Digite um email." style={styles.input} />
+        <View style={styles.containerFormLogin}>
+          <Text style={styles.titleLogin}>Email</Text>
+          <TextInput placeholder="Digite um email." style={styles.input} />
 
-        <Text style={styles.titleLogin}>Senha</Text>
-        <TextInput placeholder="Digite sua senha.." style={styles.input} />
+          <Text style={styles.titleLogin}>Senha</Text>
+          <TextInput placeholder="Digite sua senha.." style={styles.input} secureTextEntry />
 
-        <TouchableOpacity
-          style={styles.forgotPassword}
-          onPress={() => navigation.navigate('PasswordReset')}>
-          <Text style={{ color: 'red' }}>Esqueci minha Senha</Text>
-        </TouchableOpacity>
-
-        <View style={styles.rememberAccessContainer}>
-          <CheckBox
-            containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
-            title="Lembrar acesso"
-            checked={rememberAccess}
-            onPress={() => setRememberAccess(!rememberAccess)}
-            textStyle={{ color: 'black' }}
-            checkedColor="green"
-          />
-        </View>
-
-        <TouchableOpacity
-          style={styles.buttonRegister}
-          onPress={() => navigation.navigate('Register')}>
-          <Text style={styles.buttonRegisterText}>Não possui uma conta? Cadastre-se.</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('UpLoadImage')}>
-          <Text style={styles.buttonText}>Acessar</Text>
-        </TouchableOpacity>
-
-        {/* Botão "Acessar usando meu Id Apple" */}
-        <TouchableOpacity
-          style={styles.appleButtonContainer} // Estilo para o contêiner do botão Apple
-          onPress={() => console.log("Acessar usando meu Id Apple clicado")}>
           <TouchableOpacity
-            style={styles.appleButton} // Estilo para o botão Apple
+            style={styles.forgotPassword}
+            onPress={() => navigation.navigate('PasswordReset')}>
+            <Text style={{ color: 'red' }}>Esqueci minha Senha</Text>
+          </TouchableOpacity>
+
+          <View style={styles.rememberAccessContainer}>
+            <CheckBox
+              containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
+              title="Lembrar acesso"
+              checked={rememberAccess}
+              onPress={() => setRememberAccess(!rememberAccess)}
+              textStyle={{ color: 'black' }}
+              checkedColor="green"
+            />
+          </View>
+
+          <TouchableOpacity
+            style={styles.buttonRegister}
+            onPress={() => navigation.navigate('Register')}>
+            <Text style={styles.buttonRegisterText}>Não possui uma conta? Cadastre-se.</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('UpLoadImage')}>
+            <Text style={styles.buttonText}>Acessar</Text>
+          </TouchableOpacity>
+
+          {/* Botão "Acessar usando meu Id Apple" */}
+          <TouchableOpacity
+            style={styles.appleButtonContainer}
             onPress={() => console.log("Acessar usando meu Id Apple clicado")}>
-            <Icon name="apple" size={20} color="white" style={styles.icon} />
-            <Text style={styles.appleButtonText}>Acessar usando meu Id Apple</Text>
+            <TouchableOpacity
+              style={styles.appleButton}
+              onPress={() => console.log("Acessar usando meu Id Apple clicado")}>
+              <Icon name="apple" size={20} color="white" style={styles.icon} />
+              <Text style={styles.appleButtonText}>Acessar usando meu Id Apple</Text>
+            </TouchableOpacity>
           </TouchableOpacity>
-        </TouchableOpacity>
 
-        {/* Botão "Acessar usando conta G-mail" */}
-        <TouchableOpacity
-          style={styles.gmailButtonContainer} // Estilo para o contêiner do botão Gmail
-          onPress={() => console.log("Acessar usando conta G-mail clicado")}>
+          {/* Botão "Acessar usando conta G-mail" */}
           <TouchableOpacity
-            style={styles.gmailButton} // Estilo para o botão Gmail
+            style={styles.gmailButtonContainer}
             onPress={() => console.log("Acessar usando conta G-mail clicado")}>
-            <Text style={styles.gmailButtonText}>Acessar usando conta G-mail</Text>
+            <TouchableOpacity
+              style={styles.gmailButton}
+              onPress={() => console.log("Acessar usando conta G-mail clicado")}>
+              <Text style={styles.gmailButtonText}>Acessar usando conta G-mail</Text>
+            </TouchableOpacity>
           </TouchableOpacity>
-        </TouchableOpacity>
-      </Animatable.View>
-    </View>
+        </View>
+      </ScrollView>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -92,7 +101,7 @@ const styles = StyleSheet.create({
   },
 
   containerHeader: {
-    marginTop: '14%.',
+    marginTop: '14%',
     marginBottom: '8%',
     fontWeight: 'bold',
     paddingStart: '8%',
@@ -112,7 +121,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     paddingStart: '8%',
     paddingEnd: '8%',
-    bottom: -50,
+    paddingBottom: 50, // Adicionei paddingBottom para evitar que os últimos elementos fiquem cobertos pelo teclado
   },
   titleLogin: {
     fontSize: 20,
@@ -137,7 +146,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: -35,
     marginLeft: 180,
-    justifyContent: 'end',
+    justifyContent: 'flex-end',
   },
 
   buttonRegister: {
@@ -164,9 +173,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  // Estilo para o contêiner do botão Apple
   appleButtonContainer: {
-    backgroundColor: 'black', // Cor de fundo que você deseja
+    backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
@@ -174,23 +182,20 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 
-  // Estilo para o botão Apple
   appleButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
-  // Estilo para o texto do botão Apple
   appleButtonText: {
     color: 'white',
     fontSize: 18,
     marginLeft: 10,
   },
 
-  // Estilo para o contêiner do botão Gmail
   gmailButtonContainer: {
-    backgroundColor: 'red', // Cor de fundo que você deseja
+    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
@@ -198,13 +203,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
-  // Estilo para o botão Gmail
   gmailButton: {
     alignItems: 'center',
     justifyContent: 'center',
   },
 
-  // Estilo para o texto do botão Gmail
   gmailButtonText: {
     color: 'white',
     fontSize: 18,

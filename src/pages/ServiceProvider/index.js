@@ -157,7 +157,7 @@ export default function ServiceProvider() {
     />
     {!isCpfValid(cpf) && cpf ? <Text style={styles.errorMessage}>CPF inválido</Text> : cpf ? <Text style={styles.validMessage}>CPF válido</Text> : null}
 
-
+    <Text style={styles.title}>CNPJ</Text>
         <TextInput
           keyboardType="numeric"
           placeholder="CNPJ"

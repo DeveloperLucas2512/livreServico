@@ -265,13 +265,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   customLocationInput: {
+    minHeight: 50,
     flex: 1,
     marginRight: 10,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#777',
     borderRadius: 8,
     paddingHorizontal: 10,
-    fontSize: 16,
+    fontSize: 18,
   },
   customLocationButton: {
     backgroundColor: 'blue',
