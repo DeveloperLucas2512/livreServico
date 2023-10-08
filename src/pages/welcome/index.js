@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import UpLoadImage from '../UpLoadImage';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
+import { ScrollView } from 'react-native';
 
 export default function Welcome() {
   const navigation = useNavigation();
@@ -19,6 +20,7 @@ export default function Welcome() {
   }, []);
 
   return (
+    <ScrollView contentContainerStyle={styles.scrollView}>
     <View style={styles.container}>
       <View style={styles.containerBottom}>
         <View style={styles.imageContainer}>
@@ -56,6 +58,7 @@ export default function Welcome() {
 
       </View>
     </View>
+    </ScrollView>
   );
 }
 
@@ -65,7 +68,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#38a69d',
   },
   containerBottom: {
-    marginTop: 30,
+    height: 3000,
+    marginTop: 120,
     flex: 1,
     bottom: 25,
     backgroundColor: '#fff',
@@ -75,33 +79,40 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 40,
   },
   imageContainer: {
+    bottom: -10,
     marginTop: 40,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  imageHome: {
+  imageHome: {    
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
-    marginTop: -20,
+    marginTop: -50,
     width: '100%',
     height: 300,
   },
   imageHome2: {
+    alignSelf: 'center',
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
-    marginTop: 30,
-    width: '100%',
-    height: 300,
+    marginTop: 20,
+    width: '90%',
+    height: 200,
+    bottom: 0,
   },
+
   button: {
+    width: '80%',
+    bottom: 0,
     backgroundColor: 'green',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 15,
     borderRadius: 40,
-    marginTop: 70,
+    marginTop: 50,
+    alignSelf: 'center',
   },
   buttonText: {
     color: 'white',
