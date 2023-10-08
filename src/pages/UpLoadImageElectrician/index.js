@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 
-export default function UpLoadImage() {
+export default function UpLoadImageElectrician() {
   const navigation = useNavigation();
   const [showImediatos, setShowImediatos] = useState(false);
 
@@ -13,7 +13,7 @@ export default function UpLoadImage() {
 
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('Redirection'); 
+      navigation.navigate('HomeWork'); 
     }, 600); 
   }, []);
 
@@ -24,7 +24,7 @@ export default function UpLoadImage() {
       </Animatable.View>
 
       <Image
-        source={require('../../assets/imageMason.png')}
+        source={require('../../assets/imageElectrician.png')}
         style={styles.imageScreen}
         resizeMode="cover"
         onLoad={handleImageLoad}

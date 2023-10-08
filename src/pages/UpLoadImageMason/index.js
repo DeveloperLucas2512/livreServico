@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 
-export default function UpLoadImage() {
+export default function UpLoadImageMason() {
   const navigation = useNavigation();
   const [showImediatos, setShowImediatos] = useState(false);
 

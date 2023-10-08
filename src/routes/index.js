@@ -11,6 +11,11 @@ import informationLocalization from '../pages/CurrentLocalization/informationLoc
 import indexForm from '../pages/ServiceProvider/indexForm';
 import PaymentMethods from '../pages/PaymentMethods';
 import UpLoadImage from '../pages/UpLoadImage';
+import UpLoadImageMason from '../pages/UpLoadImageMason';
+import UpLoadImageGeneralServices from '../pages/UpLoadImageGeneralServices';
+import UpLoadImageElectrician from '../pages/UpLoadImageElectrician';
+import UpLoadImageAnalyst from '../pages/UpLoadImageAnalyst';
+import PasswordReset from '../pages/PasswordReset';
 
 const Stack = createNativeStackNavigator();
 
@@ -77,6 +82,32 @@ export default function Routes() {
       <Stack.Screen
         name="UpLoadImage"
         component={UpLoadImage}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="UpLoadImageMason"
+        component={UpLoadImageMason}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="UpLoadImageGeneralServices"
+        component={UpLoadImageGeneralServices}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="UpLoadImageElectrician"
+        component={UpLoadImageElectrician}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="UpLoadImageAnalyst"
+        component={UpLoadImageAnalyst}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="PasswordReset"
+        component={PasswordReset}
         options={{ headerShown: false }}
       />
 

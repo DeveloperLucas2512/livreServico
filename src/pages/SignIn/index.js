@@ -31,7 +31,7 @@ export default function SignIn() {
 
         <TouchableOpacity
           style={styles.forgotPassword}
-          onPress={() => console.log("Esqueci minha Senha clicado")}>
+          onPress={() => navigation.navigate('PasswordReset')}>
           <Text style={{ color: 'red' }}>Esqueci minha Senha</Text>
         </TouchableOpacity>
 

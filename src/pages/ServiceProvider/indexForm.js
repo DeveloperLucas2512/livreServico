@@ -170,7 +170,7 @@ export default function ServiceProvider() {
 
         <TouchableOpacity
             style={styles.buttonPayment}
-            onPress={() => navigation.navigate("PaymentMethods")}>
+            onPress={() => navigation.navigate("UpLoadImageAnalyst")}>
             <Text style={styles.buttonText}>Formas de Pagamento</Text>
           </TouchableOpacity>
 

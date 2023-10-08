@@ -3,6 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet, Alert, Modal } from 'react-na
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import UpLoadImage from '../UpLoadImage';
+import UpLoadImageGeneralServices from '../UpLoadImageGeneralServices';
+import UpLoadImageAnalyst from '../UpLoadImageAnalyst';
+import UpLoadImageMason from '../UpLoadImageMason';
+import UpLoadImageElectrician from '../UpLoadImageElectrician';
 
 export default function Redirection() {
   const navigation = useNavigation();
@@ -22,7 +27,7 @@ export default function Redirection() {
       setIsRegistered(true);
     } else {
       setIsRegistered(false);
-      navigation.navigate('ServiceProvider');
+      navigation.navigate('UpLoadImageGeneralServices');
     }
   };
 
@@ -52,7 +57,7 @@ export default function Redirection() {
             <>
               <TouchableOpacity
                 style={styles.modalButton}
-                onPress={() => navigation.navigate('HomeWork')}>
+                onPress={() => navigation.navigate('UpLoadImageElectrician')}>
                 <Text style={styles.modalButtonText}>Cliente</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -122,31 +127,9 @@ export default function Redirection() {
         </View>
       </Modal>
 
-      <Modal visible={configModalVisible} transparent animationType="slide">
-        <View style={styles.modalBackground}>
-          <View style={styles.configModalContent}>
-            <TouchableOpacity onPress={closeConfigModal}>
-              <Text style={styles.closeConfigModalText}>Fechar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {/* Adicione a lógica para "Editar Perfil" aqui */}}>
-              <Text style={styles.configModalText}>Editar Perfil</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {/* Adicione a lógica para "Atualizar Foto" aqui */}}>
-              <Text style={styles.configModalText}>Atualizar Foto</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {/* Adicione a lógica para "Excluir Conta" aqui */}}>
-              <Text style={styles.configModalText}>Excluir Conta</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+      
 
       <View style={styles.footer}>
-        
-        <TouchableOpacity style={styles.footerItem}>
-          <Icon name="cog" size={24} />
-          <Text>Configuração</Text>
-        </TouchableOpacity>
         <TouchableOpacity
           style={styles.footerItem}
           onPress={() => navigation.navigate('Welcome')}>

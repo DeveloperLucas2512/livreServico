@@ -3,8 +3,7 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 
-
-export default function SplashScreen() {
+export default function UpLoadImageGeneralServices() {
   const navigation = useNavigation();
   const [showImediatos, setShowImediatos] = useState(false);
 
@@ -14,8 +13,8 @@ export default function SplashScreen() {
 
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('Redirection'); // Navegue para a próxima tela após 2 segundos
-    }, 2000); // 2000 milissegundos = 2 segundos
+      navigation.navigate('ServiceProvider'); 
+    }, 600); 
   }, []);
 
   return (
@@ -25,7 +24,7 @@ export default function SplashScreen() {
       </Animatable.View>
 
       <Image
-        source={require('../../assets/image1.png')}
+        source={require('../../assets/imageGeneralServices.png')}
         style={styles.imageScreen}
         resizeMode="cover"
         onLoad={handleImageLoad}
