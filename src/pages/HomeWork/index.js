@@ -114,19 +114,14 @@ export default function HomeWork() {
           </View>
         )}
 
-        <View style={styles.footer}>
-          <TouchableOpacity style={styles.footerItem}>
-            <Icon name="shopping-cart" size={24} />
-            <Text>Pedidos</Text>
-          </TouchableOpacity>
+      <View style={styles.footer}>                
           <TouchableOpacity style={styles.footerItem}>
             <Icon name="user" size={24} />
             <Text>Perfil</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.footerItem}
-            onPress={() => navigation.navigate("Welcome")}
-          >
+            onPress={() => navigation.navigate("Welcome")}>
             <Icon name="home" size={24} />
             <Text>Início</Text>
           </TouchableOpacity>

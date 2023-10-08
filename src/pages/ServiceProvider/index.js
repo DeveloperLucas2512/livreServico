@@ -122,21 +122,24 @@ export default function ServiceProvider() {
           placeholder="Digite o nome do profissional"
           style={styles.input}
         />
-
+    
+        <Text style={styles.title}>Data Nascimento</Text>
         <TextInput
           placeholder="Data de Nascimento (DD/MM/AAAA)"
           style={styles.input}
           onChangeText={(text) => setDataNascimento(text)}
           value={dataNascimento}
         />
-
+     
+        <Text style={styles.title}>Endereço</Text>
         <TextInput
           placeholder="Endereço"
           style={styles.input}
           onChangeText={(text) => setEndereco(text)}
           value={endereco}
         />
-
+   
+        <Text style={styles.title}>Cidade</Text>
         <TextInput
           placeholder="Cidade"
           style={styles.input}
@@ -144,6 +147,7 @@ export default function ServiceProvider() {
           value={cidade}
         />
 
+    <Text style={styles.title}>CPF</Text>
     <TextInput
       keyboardType="numeric"
       placeholder="CPF (Obrigatório)"

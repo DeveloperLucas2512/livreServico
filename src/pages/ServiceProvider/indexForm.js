@@ -295,6 +295,6 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   icon: {
-    color: '#38a69d',
+    color: 'black',
   },
 });

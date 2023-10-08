@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -9,6 +9,9 @@ export default function Redirection() {
   const [isServiceProvider, setIsServiceProvider] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [configModalVisible, setConfigModalVisible] = useState(false); 
+   const [closeConfigModal, setCloseConfigModal] = useState(false); 
 
   const handleServiceProviderPress = () => {
     setIsServiceProvider(true);
@@ -19,12 +22,20 @@ export default function Redirection() {
       setIsRegistered(true);
     } else {
       setIsRegistered(false);
-      navigation.navigate('ServiceProvider'); // Navigate to ServiceProvider screen
+      navigation.navigate('ServiceProvider');
     }
   };
 
   const handleActiveResponse = (response) => {
-    setIsActive(response === 'yes');
+    if (response === 'yes') {
+      setIsActive(true);
+      setShowModal(true);
+      
+    } else {
+      setIsActive(false);
+      navigation.goBack();
+      
+    }
   };
 
   return (
@@ -36,7 +47,7 @@ export default function Redirection() {
       </Animatable.View>
 
       <Animatable.View animation="fadeInUp" style={styles.modalContainer}>
-        <View style={styles.modalContent}>
+        <View style={styles}>
           {!isServiceProvider && (
             <>
               <TouchableOpacity
@@ -48,6 +59,12 @@ export default function Redirection() {
                 style={styles.modalButton}
                 onPress={handleServiceProviderPress}>
                 <Text style={styles.modalButtonText}>Prestador de Serviços</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.buttonReturn}
+                onPress={() => navigation.navigate('Welcome')}>
+                <Text style={styles.modalButtonText}>Voltar</Text>
               </TouchableOpacity>
             </>
           )}
@@ -61,7 +78,7 @@ export default function Redirection() {
                 <Text style={styles.modalButtonText}>Sim</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.modalButton}
+                style={styles.buttonReturn}
                 onPress={() => handleRegisteredResponse('no')}>
                 <Text style={styles.modalButtonText}>Não</Text>
               </TouchableOpacity>
@@ -77,26 +94,55 @@ export default function Redirection() {
                 <Text style={styles.modalButtonText}>Sim</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.modalButton}
+                style={styles.buttonReturn}
                 onPress={() => handleActiveResponse('no')}>
                 <Text style={styles.modalButtonText}>Não</Text>
               </TouchableOpacity>
             </>
           )}
-
-          <TouchableOpacity
-            style={styles.modalCloseButton}
-            onPress={() => navigation.navigate('Welcome')}>
-            <Text style={styles.modalCloseButtonText}>Fechar</Text>
-          </TouchableOpacity>
         </View>
       </Animatable.View>
 
+      {/* Modal personalizado */}
+      <Modal visible={showModal} transparent animationType="slide">
+        <View style={styles.modalBackground}>
+          <View style={styles.modalContent}>
+            <Icon name="check" size={40} color="green" />
+            <Text>Você está agora disponível para trabalhar.</Text>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={() => {
+                setShowModal(false);
+                // navigation.goBack();
+                navigation.navigate('Welcome');
+              }}>
+              <Text style={styles.modalButtonText}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal visible={configModalVisible} transparent animationType="slide">
+        <View style={styles.modalBackground}>
+          <View style={styles.configModalContent}>
+            <TouchableOpacity onPress={closeConfigModal}>
+              <Text style={styles.closeConfigModalText}>Fechar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {/* Adicione a lógica para "Editar Perfil" aqui */}}>
+              <Text style={styles.configModalText}>Editar Perfil</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {/* Adicione a lógica para "Atualizar Foto" aqui */}}>
+              <Text style={styles.configModalText}>Atualizar Foto</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {/* Adicione a lógica para "Excluir Conta" aqui */}}>
+              <Text style={styles.configModalText}>Excluir Conta</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.footerItem}>
-          <Icon name="shopping-cart" size={24} />
-          <Text>Pedidos</Text>
-        </TouchableOpacity>
+        
         <TouchableOpacity style={styles.footerItem}>
           <Icon name="cog" size={24} />
           <Text>Configuração</Text>
@@ -107,6 +153,11 @@ export default function Redirection() {
           <Icon name="home" size={24} />
           <Text>Início</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.footerItem}
+        onPress={() => navigation.navigate('SignIn')}>
+            <Icon name="user" size={24} />
+            <Text>Perfil</Text>
+          </TouchableOpacity>
       </View>
     </View>
   );
@@ -146,23 +197,42 @@ const styles = StyleSheet.create({
     bottom: 50,
   },
   modalContainer: {
+    marginTop: 250,
     alignSelf: 'center',
-    width: '90%',
+    width: '80%',
     backgroundColor: '#fff',
-    flex: 1,
+    flex: 2,
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
-    padding: 20,
-    bottom: 90,
+    padding: 30,
+    bottom: 220,
   },
-  modalContent: {
+  modalBackground: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 20,
+    alignItems: 'center',
+    borderRadius: 10,
   },
   modalButton: {
+    width: '100%',
     backgroundColor: 'green',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 10,
+  },
+  buttonReturn: {
+    width: '100%',
+    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 15,
@@ -174,17 +244,35 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  modalCloseButton: {
-    backgroundColor: 'red',
-    alignItems: 'center',
+  goBackButton: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    backgroundColor: '#333',
+    borderRadius: 50,
+    width: 40,
+    height: 40,
     justifyContent: 'center',
-    padding: 15,
-    borderRadius: 10,
-    marginTop: 10,
+    alignItems: 'center',
   },
-  modalCloseButtonText: {
-    color: 'white',
+  configModalContent: {
+    backgroundColor: '#fff',
+    padding: 20,     
+    alignItems: 'center',
+    borderRadius: 10,
+    height: '50%',    
+    width: '100%', 
+  },
+  closeConfigModalText: {
+    color: 'blue',
     fontSize: 16,
     fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  configModalText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
 });
+
