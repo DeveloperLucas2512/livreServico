@@ -67,6 +67,8 @@ export default function Redirection() {
           )}
 
           {isServiceProvider && !isRegistered && (
+
+            <View style={styles.modalContainer2}>
             <>
               <Text>JÁ ESTÁ CADASTRADO?</Text>
               <TouchableOpacity
@@ -80,6 +82,7 @@ export default function Redirection() {
                 <Text style={styles.modalButtonText}>NÃO</Text>
               </TouchableOpacity>
             </>
+            </View>
           )}
 
           {isServiceProvider && isRegistered && !isActive && (
@@ -172,6 +175,20 @@ const styles = StyleSheet.create({
     marginTop: 200,
     alignSelf: 'center',
     width: '80%',
+    backgroundColor: '#fff',
+    flex: 1,
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
+    padding: 30,
+    bottom: 220,
+  },
+  modalContainer2: {
+    minHeight: 250,
+    marginTop: 190,
+    alignSelf: 'center',
+    width: '90%',
     backgroundColor: '#fff',
     flex: 1,
     borderTopLeftRadius: 50,

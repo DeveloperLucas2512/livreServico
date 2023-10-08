@@ -26,8 +26,8 @@ export default function SignIn() {
         style={styles.container}
       >
         <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
-          <Text style={styles.message}>Seja Bem-Vindo(a)</Text>
-          <Text style={styles.message}>Livre Serviços</Text>
+        <Text style={styles.message}>SEJA BEM-VINDO(a)</Text>
+        <Text style={styles.message}>LIVRE SERVIÇOS IMEDIATOS</Text>
         </Animatable.View>
 
         <View style={styles.containerFormLogin}>
@@ -63,7 +63,7 @@ export default function SignIn() {
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigation.navigate('UpLoadImage')}>
-            <Text style={styles.buttonText}>Acessar</Text>
+            <Text style={styles.buttonText}>ACESSAR</Text>
           </TouchableOpacity>
 
           {/* Botão "Acessar usando meu Id Apple" */}
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     paddingStart: '8%',
   },
   message: {
-    fontSize: 30,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#fff',
     marginTop: 50,
