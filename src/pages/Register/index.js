@@ -44,8 +44,9 @@ export default function Register() {
       keyboardShouldPersistTaps="handled"
     >
       <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
-        <Text style={styles.message}>Seja Bem-Vindo(a)</Text>
-        <Text style={styles.message}>Livre Serviços</Text>
+        <Text style={styles.message}>SEJA BEM-VINDO(a)</Text>
+        <Text style={styles.message}>LIVRE SERVIÇOS IMEDIATOS</Text>
+        
       </Animatable.View>
 
       <View style={styles.containerFormRegister}>
@@ -96,27 +97,20 @@ export default function Register() {
 
         <TouchableOpacity style={styles.buttonregister} 
          onPress={handleRegister}>
-          <Text style={styles.buttonregisterTitle}>Registrar</Text>
+          <Text style={styles.buttonregisterTitle}>REGISTRAR</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.footerItem}>
-          <Icon name="shopping-cart" size={24} />
-          <Text>Pedidos</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.footerItem}>
-          <Icon name="cog" size={24} />
-          <Text>Configuração</Text>
-        </TouchableOpacity>
-
         <TouchableOpacity
           style={styles.footerItem}
-          onPress={() => navigation.navigate('Welcome')}
-        >
+          onPress={() => navigation.navigate('Welcome')}>
           <Icon name="home" size={24} />
           <Text>Início</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerItem} onPress={() => navigation.navigate('SignIn')}>
+          <Icon name="user" size={24} />
+          <Text>Perfil</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -135,6 +129,7 @@ const styles = StyleSheet.create({
     paddingStart: '8%',
   },
   message: {
+    left: -15,
     fontSize: 28,
     fontWeight: 'bold',
     color: '#fff',
@@ -149,7 +144,8 @@ const styles = StyleSheet.create({
     paddingStart: '8%',
     paddingEnd: '8%',
     bottom: -50,
-    marginTop: 20,
+    marginTop: -70,
+    
   },
   titleLogin: {
     fontSize: 20,

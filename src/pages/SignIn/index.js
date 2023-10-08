@@ -69,23 +69,23 @@ export default function SignIn() {
           {/* Botão "Acessar usando meu Id Apple" */}
           <TouchableOpacity
             style={styles.appleButtonContainer}
-            onPress={() => console.log("Acessar usando meu Id Apple clicado")}>
+            onPress={() => console.log("")}>
             <TouchableOpacity
               style={styles.appleButton}
-              onPress={() => console.log("Acessar usando meu Id Apple clicado")}>
+              onPress={() => console.log("")}>
               <Icon name="apple" size={20} color="white" style={styles.icon} />
-              <Text style={styles.appleButtonText}>Acessar usando meu Id Apple</Text>
+              <Text style={styles.appleButtonText}>ACESSAR USANDO MEU ID APPLE</Text>
             </TouchableOpacity>
           </TouchableOpacity>
 
           {/* Botão "Acessar usando conta G-mail" */}
           <TouchableOpacity
             style={styles.gmailButtonContainer}
-            onPress={() => console.log("Acessar usando conta G-mail clicado")}>
+            onPress={() => console.log("")}>
             <TouchableOpacity
               style={styles.gmailButton}
-              onPress={() => console.log("Acessar usando conta G-mail clicado")}>
-              <Text style={styles.gmailButtonText}>Acessar usando conta G-mail</Text>
+              onPress={() => console.log("")}>
+              <Text style={styles.gmailButtonText}>ACESSAR USANDO CONTA G-MAIL</Text>
             </TouchableOpacity>
           </TouchableOpacity>
         </View>

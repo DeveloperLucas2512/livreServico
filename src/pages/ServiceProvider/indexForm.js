@@ -37,8 +37,8 @@ export default function ServiceProvider() {
     <ScrollView contentContainerStyle={styles.container}>
 
       <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
-        <Text style={styles.message}>Seja Bem-Vindo(a)</Text>
-        <Text style={styles.message}>Livre Serviços</Text>
+        <Text style={styles.message}>SEJA BEM-VINDO(a)</Text>
+        <Text style={styles.message}>LIVRE SERVIÇOS IMEDIATOS</Text>
       </Animatable.View>
 
 
@@ -69,7 +69,7 @@ export default function ServiceProvider() {
             ]}
             onPress={() => setInformarMaisCategorias(!informarMaisCategorias)}
           >
-            <Text style={styles.radioText}>Sim</Text>
+            <Text style={styles.radioText}>SIM</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
@@ -78,7 +78,7 @@ export default function ServiceProvider() {
             ]}
             onPress={() => setInformarMaisCategorias(!informarMaisCategorias)}
           >
-            <Text style={styles.radioText}>Não</Text>
+            <Text style={styles.radioText}>NÃO</Text>
           </TouchableOpacity>
         </View>
 
@@ -114,7 +114,7 @@ export default function ServiceProvider() {
           </>
         )}
 
-        <Text style={styles.titleTop}>Redes Sociais</Text>
+        <Text style={styles.titleTop}>REDES SOCIAIS</Text>
         <Text style={styles.label}>(informe pelo menos uma rede social)</Text>
         <View style={styles.socialMediaContainer}>
           <View style={styles.socialMediaInputContainer}>
@@ -165,13 +165,13 @@ export default function ServiceProvider() {
           </View>
         </View>
         <TouchableOpacity style={styles.buttonRegister} onPress={handleRegister}>
-          <Text style={styles.buttonText}>Registrar Profissional</Text>
+          <Text style={styles.buttonText}>REGISTRAR PROFISSIONAL</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
             style={styles.buttonPayment}
             onPress={() => navigation.navigate("UpLoadImageAnalyst")}>
-            <Text style={styles.buttonText}>Formas de Pagamento</Text>
+            <Text style={styles.buttonText}>FORMAS DE PAGAMENTOS</Text>
           </TouchableOpacity>
 
       </View>

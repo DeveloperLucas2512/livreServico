@@ -39,7 +39,7 @@ export default function HomeWork() {
     <TouchableWithoutFeedback>
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Digite o serviço que deseja encontrar ou acesse a busca rápida!</Text>
+          <Text style={styles.title}>DIGITE O SERVIÇO QUE DESEJA ENCONTRAR OU ACESSE A BUSCA RÁPIDA!</Text>
         </View>
 
         <View style={styles.searchContainer}>
@@ -80,16 +80,16 @@ export default function HomeWork() {
               style={styles.locationButton}
               onPress={() => setUseCustomLocation(false)} // Definir useCustomLocation como false para usar a localização atual
             >
-              <Text style={styles.titleLocation}>Buscar Profissional usando</Text>
-              <Text style={styles.titleLocation}>minha localização atual</Text>
+              <Text style={styles.titleLocation}>BUSCAR PROFISSIONAL USANDO</Text>
+              <Text style={styles.titleLocation}>MINHA LOCALIZAÇÃO ATUAL</Text>
             </TouchableOpacity>
             <Text style={styles.OptionsSearch}>OU</Text>
             <TouchableOpacity
               style={styles.locationButton}
               onPress={() => setUseCustomLocation(true)} // Definir useCustomLocation como true para usar outra localização
             >
-              <Text style={styles.titleLocation}>Buscar Profissional usando</Text>
-              <Text style={styles.titleLocation}>outra localização</Text>
+              <Text style={styles.titleLocation}>BUSCAR PROFISSIONAL USANDO</Text>
+              <Text style={styles.titleLocation}>OUTRA LOCALIZAÇÃO</Text>
             </TouchableOpacity>
             {useCustomLocation && ( // Renderizar o campo de entrada de texto somente se useCustomLocation for verdadeiro
               <View style={styles.customLocationContainer}>
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   title: {
-    fontSize: 24,
+    fontSize: 21,
     fontWeight: 'bold',
     marginBottom: 16,
     color: 'white',

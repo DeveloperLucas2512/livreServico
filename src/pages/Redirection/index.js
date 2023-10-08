@@ -37,9 +37,10 @@ export default function Redirection() {
   return (
     <View style={styles.container}>
       <Animatable.View animation="slideInDown" style={styles.titleContainer}>
-        <Text style={styles.title}>Informe abaixo</Text>
-        <Text style={styles.title}>como deseja continuar</Text>
-        <Text style={styles.title}>navegando em Livre Serviços</Text>
+        <Text style={styles.title}>INFORME ABAIXO</Text>
+        <Text style={styles.title}>COMO DESEJA CONTINUAR</Text>
+        <Text style={styles.title}>NAVEGANDO EM</Text>
+        <Text style={styles.title}>LIVRE SERVIÇOS IMEDIATOS</Text>
       </Animatable.View>
 
       <Animatable.View animation="fadeInUp" style={styles.modalContainer}>
@@ -49,50 +50,50 @@ export default function Redirection() {
               <TouchableOpacity
                 style={styles.modalButton}
                 onPress={() => navigation.navigate('UpLoadImageElectrician')}>
-                <Text style={styles.modalButtonText}>Cliente</Text>
+                <Text style={styles.modalButtonText}>CLIENTE</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.modalButton}
                 onPress={handleServiceProviderPress}>
-                <Text style={styles.modalButtonText}>Prestador de Serviços</Text>
+                <Text style={styles.modalButtonText}>PRESTADOR DE SERVIÇOS</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={styles.buttonReturn}
                 onPress={() => navigation.navigate('Welcome')}>
-                <Text style={styles.modalButtonText}>Voltar</Text>
+                <Text style={styles.modalButtonText}>VOLTAR</Text>
               </TouchableOpacity>
             </>
           )}
 
           {isServiceProvider && !isRegistered && (
             <>
-              <Text>Ja é cadastrado?</Text>
+              <Text>JÁ ESTÁ CADASTRADO?</Text>
               <TouchableOpacity
                 style={styles.modalButton}
                 onPress={() => handleRegisteredResponse('yes')}>
-                <Text style={styles.modalButtonText}>Sim</Text>
+                <Text style={styles.modalButtonText}>SIM</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.buttonReturn}
                 onPress={() => handleRegisteredResponse('no')}>
-                <Text style={styles.modalButtonText}>Não</Text>
+                <Text style={styles.modalButtonText}>NÃO</Text>
               </TouchableOpacity>
             </>
           )}
 
           {isServiceProvider && isRegistered && !isActive && (
             <>
-              <Text>Deseja ativar seu status para disponível?</Text>
+              <Text>DESEJA ATIVAR SEU STATUS PARA DISPONÍVEL??</Text>
               <TouchableOpacity
                 style={styles.modalButton}
                 onPress={() => handleActiveResponse('yes')}>
-                <Text style={styles.modalButtonText}>Sim</Text>
+                <Text style={styles.modalButtonText}>SIM</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.buttonReturn}
                 onPress={() => handleActiveResponse('no')}>
-                <Text style={styles.modalButtonText}>Não</Text>
+                <Text style={styles.modalButtonText}>NÃO</Text>
               </TouchableOpacity>
             </>
           )}
@@ -104,7 +105,7 @@ export default function Redirection() {
         <View style={styles.modalBackground}>
           <View style={styles.modalContent}>
             <Icon name="check" size={40} color="green" />
-            <Text>Você está agora disponível para trabalhar.</Text>
+            <Text>VOCÊ ESTÁ AGORA DISPONÍVEL PARA TRABALHAR..</Text>
             <TouchableOpacity
               style={styles.modalButton}
               onPress={() => {
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
   title: {
     top: -150,
     paddingTop: 10,
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: 'bold',
     justifyContent: 'center',
     alignSelf: 'center',

@@ -7,10 +7,10 @@ export default function PaymentMethods() {
     const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Escolha o método de pagamento:</Text>
+      <Text style={styles.title}>ESCOLHA O MÉTODO DE PAGAMENTO:</Text>
       
       <TouchableOpacity style={styles.paymentOption}>
-        <Text style={styles.optionText}>Boleto Bancário</Text>
+        <Text style={styles.optionText}>BOLETO BANCÁRIO</Text>
         <Text style={styles.subTitle}>Liberação em até 3 dias úteis</Text>
       </TouchableOpacity>
 
@@ -20,29 +20,29 @@ export default function PaymentMethods() {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.paymentOption}>
-        <Text style={styles.optionText}>QR Code</Text>
+        <Text style={styles.optionText}>QR CODE</Text>
         <Text style={styles.subTitle}>Liberação imediata</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.paymentOption}>
-        <Text style={styles.optionText}>Cartão de Crédito</Text>
+        <Text style={styles.optionText}>CARTÃO DE CRÉDITO</Text>
         <Text style={styles.subTitle}>Liberação imediata</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.paymentOption}>
-        <Text style={styles.optionText}>Mercado Pago</Text>
+        <Text style={styles.optionText}>MERCADO PAGO</Text>
         <Text style={styles.subTitle}>Liberação imediata</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.paymentOption}>
-        <Text style={styles.optionText}>PayPal</Text>
+        <Text style={styles.optionText}>PAYPAL</Text>
         <Text style={styles.subTitle}>Liberação imediata</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
          style={styles.backButton}
          onPress={() => navigation.navigate("ServiceProvider")}>
-          <Text style={styles.backButtonText}>Voltar</Text>
+          <Text style={styles.backButtonText}>VOLTAR</Text>
         </TouchableOpacity>
     </View>
   );

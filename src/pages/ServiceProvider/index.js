@@ -92,12 +92,12 @@ export default function ServiceProvider() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
-        <Text style={styles.message}>Seja Bem-Vindo(a)</Text>
-        <Text style={styles.message}>Livre Serviços</Text>
+      <Text style={styles.message}>SEJA BEM-VINDO(a)</Text>
+        <Text style={styles.message}>LIVRE SERVIÇOS IMEDIATOS</Text>
       </Animatable.View>
 
       <Animatable.View animation="fadeInUp" style={styles.containerFormRegister}>
-        <Text style={styles.title}>Por favor anexar uma foto recente</Text>
+        <Text style={styles.title}>POR FAVOR ANEXAR UMA FOTO RECENTE</Text>
         <View style={styles.imagePicker}>
           <View style={styles.imageFrame}>
             {profileImage ? (
@@ -107,12 +107,12 @@ export default function ServiceProvider() {
             )}
           </View>
           <TouchableOpacity onPress={openImagePicker} style={styles.chooseImageButton}>
-            <Text style={styles.chooseImageText}>Escolher imagem</Text>
+            <Text style={styles.chooseImageText}>ESCOLHER IMAGEM</Text>
           </TouchableOpacity>
         </View>
 
         <TouchableOpacity onPress={handleFacialRecognition} style={styles.facialRecognitionButton}>
-          <Text style={styles.facialRecognitionButtonText}>Reconhecimento Facial</Text>
+          <Text style={styles.facialRecognitionButtonText}>RECONHECIMENTO FACIAL</Text>
         </TouchableOpacity>
 
         <Text style={styles.subTitle}>É necessário o reconhecimento facial para dar continuidade no cadastro</Text>
@@ -170,7 +170,7 @@ export default function ServiceProvider() {
           style={styles.continueButton}
           onPress={() => navigation.navigate('indexForm')}>
           <View style={styles.buttonContent}>
-            <Text style={styles.continueButtonText}>Continue</Text>
+            <Text style={styles.continueButtonText}>CONTINUE</Text>
             <Icon style={styles.continueIcon} name="arrow-forward" size={25} color="#fff" />
           </View>
         </TouchableOpacity>
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
   },
 
   message: {
-    fontSize: 30,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#fff',
   },
@@ -207,7 +207,8 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 20,
+    alignSelf: 'flex-start',
+    fontSize: 16,
     marginTop: 20,
   },
 
