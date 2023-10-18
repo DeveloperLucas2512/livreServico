@@ -9,10 +9,6 @@ export default function App() {
     <NavigationContainer>
       <StatusBar backgroundColor="#38A69D" barStyle="light-content" />
       <Routes />
-
-      <View>
-        <Text>Ola Mundo</Text>
-      </View>
     </NavigationContainer>
   );
 }
