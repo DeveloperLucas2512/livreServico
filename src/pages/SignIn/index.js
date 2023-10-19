@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView,
-   TouchableWithoutFeedback, Keyboard, } from 'react-native';
+   TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
 import { CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import firebase from 'firebase';
-
 
 export default function SignIn() {
   const navigation = useNavigation();
@@ -14,42 +13,59 @@ export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  
+  async function logar() {
+    try {
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      // O login foi bem-sucedido, você pode navegar para a próxima tela ou realizar a ação desejada.
+      navigation.navigate('NextScreen');
+    } catch (error) {
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+        // Usuário não encontrado ou senha incorreta
+        Alert.alert('Erro', 'Usuário não cadastrado ou senha incorreta.');
+      } else {
+        // Outro erro, exibir mensagem genérica
+        Alert.alert('Erro', 'Algo deu errado. Por favor, tente novamente.');
+      }
+    }
+  }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        keyboardShouldPersistTaps="handled"
-        style={styles.container}
-      >
-        <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      keyboardShouldPersistTaps="handled"
+    >
+      <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
         <Text style={styles.message}>SEJA BEM-VINDO(a)</Text>
         <Text style={styles.message}>LIVRE SERVIÇOS IMEDIATOS</Text>
-        </Animatable.View>
+      </Animatable.View>
 
-        <View style={styles.containerFormLogin}>
-          <Text style={styles.titleLogin}>Email</Text>         
-          <TextInput placeholder="Digite um email." style={styles.input}
-           underlineColorndroid="transparent"
-           onChangeTest={(texto) => setEmail(texto)}
-           value={email}
-          />
+      <View style={styles.containerFormLogin}>
+        <Text style={styles.titleLogin}>Email</Text>
+        <TextInput
+          placeholder="Digite um email."
+          style={styles.input}
+          underlineColorAndroid="transparent"
+          onChangeText={(texto) => setEmail(texto)}
+          value={email}
+        />
 
-          <Text style={styles.titleLogin}>Senha</Text>
-          <TextInput placeholder="Digite sua senha.." style={styles.input} 
-           underlineColorndroid="transparent"
-           onChangeTest={(texto) => setPassword(texto)}
-           value={password}
-          />
+        <Text style={styles.titleLogin}>Senha</Text>
+        <TextInput
+          placeholder="Digite sua senha.."
+          style={styles.input}
+          underlineColorAndroid="transparent"
+          onChangeText={(texto) => setPassword(texto)}
+          secureTextEntry
+          value={password}
+        />
 
-          <TouchableOpacity
-            style={styles.forgotPassword}
-            onPress={() => navigation.navigate('PasswordReset')}>
-            <Text style={{ color: 'red' }}>Esqueci minha Senha</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.forgotPassword}
+          onPress={() => navigation.navigate('PasswordReset')}>
+          <Text style={{ color: 'red' }}>Esqueci minha Senha</Text>
+        </TouchableOpacity>
 
-          <View style={styles.rememberAccessContainer}>
+        <View style={styles.rememberAccessContainer}>
             <CheckBox
               containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
               title="Lembrar acesso"
@@ -60,43 +76,39 @@ export default function SignIn() {
             />
           </View>
 
-          <TouchableOpacity
-            style={styles.buttonRegister}
-            onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.buttonRegisterText}>Não possui uma conta? Cadastre-se.</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonRegister}
+          onPress={() => navigation.navigate('Register')}
+        >
+          <Text style={styles.buttonRegisterText}>Não possui uma conta? Cadastre-se.</Text>
+        </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('UpLoadImage')}>
-            <Text style={styles.buttonText}>ACESSAR</Text>
-          </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={logar}>
+          <Text style={styles.buttonText}>ACESSAR</Text>
+        </TouchableOpacity>
 
-          {/* Botão "Acessar usando meu Id Apple" */}
-          <TouchableOpacity
-            style={styles.appleButtonContainer}
-            onPress={() => console.log("")}>
-            <TouchableOpacity
-              style={styles.appleButton}
-              onPress={() => console.log("")}>
-              <Icon name="apple" size={20} color="white" style={styles.icon} />
-              <Text style={styles.appleButtonText}>ACESSAR USANDO MEU ID APPLE</Text>
-            </TouchableOpacity>
+        {/* Botão "Acessar usando meu Id Apple" */}
+        <TouchableOpacity
+          style={styles.appleButtonContainer}
+          onPress={() => console.log('')}
+        >
+          <TouchableOpacity style={styles.appleButton} onPress={() => console.log('')}>
+            <Icon name="apple" size={20} color="white" style={styles.icon} />
+            <Text style={styles.appleButtonText}>ACESSAR USANDO MEU ID APPLE</Text>
           </TouchableOpacity>
+        </TouchableOpacity>
 
-          {/* Botão "Acessar usando conta G-mail" */}
-          <TouchableOpacity
-            style={styles.gmailButtonContainer}
-            onPress={() => console.log("")}>
-            <TouchableOpacity
-              style={styles.gmailButton}
-              onPress={() => console.log("")}>
-              <Text style={styles.gmailButtonText}>ACESSAR USANDO CONTA G-MAIL</Text>
-            </TouchableOpacity>
+        {/* Botão "Acessar usando conta G-mail" */}
+        <TouchableOpacity
+          style={styles.gmailButtonContainer}
+          onPress={() => console.log('')}
+        >
+          <TouchableOpacity style={styles.gmailButton} onPress={() => console.log('')}>
+            <Text style={styles.gmailButtonText}>ACESSAR USANDO CONTA G-MAIL</Text>
           </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </TouchableWithoutFeedback>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -153,6 +165,14 @@ const styles = StyleSheet.create({
     marginTop: -35,
     marginLeft: 180,
     justifyContent: 'flex-end',
+  },
+
+  rememberAccessButton: {
+    backgroundColor: 'transparent',
+  },
+
+  rememberAccessText: {
+    fontSize: 16,
   },
 
   buttonRegister: {

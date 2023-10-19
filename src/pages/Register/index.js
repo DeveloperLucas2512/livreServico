@@ -50,7 +50,7 @@ export default function Register() {
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password);
       Alert.alert('Sucesso', 'Usuário criado com sucesso!');
-      navigation.navigate('HomeWork');
+      navigation.navigate('Redirection');
     } catch (error) {
       if (error.code === 'auth/invalid-email') {
         setEmailError('Email inválido');
