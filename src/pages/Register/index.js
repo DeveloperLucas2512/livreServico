@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
@@ -17,35 +17,51 @@ export default function Register() {
   const [emailError, setEmailError] = useState('');
   const [senhaError, setSenhaError] = useState('');
   const [confirmaSenhaError, setConfirmaSenhaError] = useState('');
+  const [telefoneFixoError, setTelefoneFixoError] = useState('');
 
-  async function cadastrar() {   
+  async function cadastrar() {
+    setNomeError('');
+    setEmailError('');
+    setSenhaError('');
+    setConfirmaSenhaError('');
+    setTelefoneFixoError('');
 
-    if (!nome || !email || !senha || !confirmaSenha) {
+    if (!nome || !celular || !email || !password || !confirmaSenha) {
       if (!nome) setNomeError('Campo obrigatório');
       if (!email) setEmailError('Campo obrigatório');
       if (!password) setSenhaError('Campo obrigatório');
       if (!confirmaSenha) setConfirmaSenhaError('Campo obrigatório');
-      return; 
+      return;
     }
 
-    await firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((value) => {
-      alert('Usuario criado com sucesso! ' + value.user.email )
-    })
-    .catch((error) => {
-     if(error.code === 'auth/weak-password'){
-      alert('Sua senha deve ter pelo menos 6 caracteres');
+    if (password.length < 6) {
+      setSenhaError('Sua senha deve ter pelo menos 6 caracteres');
       return;
-     }
-     if(error.code === 'auth/invalid-email'){
-      alert('Email invalido');
+    }
+
+    if (password !== confirmaSenha) {
+      setSenhaError('As senhas não coincidem');
+      setConfirmaSenhaError('As senhas não coincidem');
       return;
-     } else{
-      alert('Error, tente novamente');
-      return;
-     }
-  })
-}
+    }
+
+    try {
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
+      Alert.alert('Sucesso', 'Usuário criado com sucesso!');
+      //navigation.navigate('HomeWork');
+    } catch (error) {
+      if (error.code === 'auth/invalid-email') {
+        setEmailError('Email inválido');
+        return;
+      } else if (error.code === 'auth/weak-password') {
+        setSenhaError('Sua senha deve ter pelo menos 6 caracteres');
+        return;
+      } else {
+        Alert.alert('Erro', 'Algo deu errado. Por favor, tente novamente.');
+        return;
+      }
+    }
+  }
 
   return (
     <ScrollView
@@ -70,8 +86,7 @@ export default function Register() {
         <TextInput
           placeholder="Digite um email"
           style={{ ...styles.input, marginTop: 0 }}
-          blurOnSubmit={false}
-          onSubmitEditing={() => senhaRef.current.focus()}
+          blurOnSubmit={false}          
           underlineColorAndroid="transparent"
           onChangeText={(texto) => setEmail(texto)}
           value={email}
@@ -83,8 +98,7 @@ export default function Register() {
           style={{ ...styles.input, marginTop: 0 }}
           value={celular}
           onChangeText={(texto) => setCelular(texto)}
-          blurOnSubmit={false}
-          onSubmitEditing={() => senhaRef.current.focus()}
+          blurOnSubmit={false}          
         />
         <Text style={styles.errorMessage}>{senhaError}</Text>
 
@@ -94,15 +108,13 @@ export default function Register() {
           value={telefoneFixo}
           onChangeText={(texto) => setTelefoneFixo(texto)}
           blurOnSubmit={false}
-          onSubmitEditing={() => senhaRef.current.focus()}
-        />
+          />
 
         <TextInput
           placeholder="Crie uma Senha"
           style={{ ...styles.input, marginTop: 20 }}
           onChangeText={(texto) => setPassword(texto)}
           blurOnSubmit={false}
-          onSubmitEditing={() => confirmaSenhaRef.current.focus()}
           underlineColorAndroid="transparent"
           value={password}
         />
