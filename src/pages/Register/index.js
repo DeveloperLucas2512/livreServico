@@ -1,42 +1,51 @@
 import React, { useState, useRef } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-  ScrollView,
-  Platform,
-} from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Redirection from '../Redirection';
-
+import firebase from '../../services/firebaseConnection.js';
 
 export default function Register() {
   const navigation = useNavigation();
   const [nome, setNome] = useState('');
-  const [sobrenome, setSobrenome] = useState('');
   const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+  const [password, setPassword] = useState('');
   const [confirmaSenha, setConfirmaSenha] = useState('');
+  const [celular, setCelular] = useState('');
+  const [telefoneFixo, setTelefoneFixo] = useState('');
+  const [nomeError, setNomeError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [senhaError, setSenhaError] = useState('');
+  const [confirmaSenhaError, setConfirmaSenhaError] = useState('');
 
-  // Adicione refs para os campos de entrada
-  const sobrenomeRef = useRef();
-  const emailRef = useRef();
-  const senhaRef = useRef();
-  const confirmaSenhaRef = useRef();
+  async function cadastrar() {   
 
-  const handleRegister = () => {
-   
-      setTimeout(() => {
-        Alert.alert('Registro Salvo', 'Registro salvo com sucesso');
-        navigation.navigate('Redirection');
-      }, 10);
-    
-  };
+    if (!nome || !email || !senha || !confirmaSenha) {
+      if (!nome) setNomeError('Campo obrigatório');
+      if (!email) setEmailError('Campo obrigatório');
+      if (!password) setSenhaError('Campo obrigatório');
+      if (!confirmaSenha) setConfirmaSenhaError('Campo obrigatório');
+      return; 
+    }
+
+    await firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((value) => {
+      alert('Usuario criado com sucesso! ' + value.user.email )
+    })
+    .catch((error) => {
+     if(error.code === 'auth/weak-password'){
+      alert('Sua senha deve ter pelo menos 6 caracteres');
+      return;
+     }
+     if(error.code === 'auth/invalid-email'){
+      alert('Email invalido');
+      return;
+     } else{
+      alert('Error, tente novamente');
+      return;
+     }
+  })
+}
 
   return (
     <ScrollView
@@ -46,57 +55,69 @@ export default function Register() {
       <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
         <Text style={styles.message}>SEJA BEM-VINDO(a)</Text>
         <Text style={styles.message}>LIVRE SERVIÇOS IMEDIATOS</Text>
-        
       </Animatable.View>
 
       <View style={styles.containerFormRegister}>
         <TextInput
+          style={{ ...styles.input, marginTop: 30 }}
+          underlineColorAndroid='transparent'
+          onChangeText={(texto) => setNome(texto)}
           placeholder="Digite seu nome completo"
-          style={styles.input}
           value={nome}
-          onChangeText={(text) => setNome(text)}
-          onSubmitEditing={() => sobrenomeRef.current.focus()}
         />
+        <Text style={styles.errorMessage}>{nomeError}</Text>
+
         <TextInput
-          placeholder="Email"
-          style={styles.input}
+          placeholder="Digite um email"
+          style={{ ...styles.input, marginTop: 0 }}
+          blurOnSubmit={false}
+          onSubmitEditing={() => senhaRef.current.focus()}
+          underlineColorAndroid="transparent"
+          onChangeText={(texto) => setEmail(texto)}
           value={email}
-          onChangeText={(text) => setEmail(text)}
-          ref={emailRef}
+        />
+        <Text style={styles.errorMessage}>{emailError}</Text>
+
+        <TextInput
+          placeholder="Celular Ex: (DDD)99999-9999"
+          style={{ ...styles.input, marginTop: 0 }}
+          value={celular}
+          onChangeText={(texto) => setCelular(texto)}
           blurOnSubmit={false}
           onSubmitEditing={() => senhaRef.current.focus()}
         />
+        <Text style={styles.errorMessage}>{senhaError}</Text>
+
         <TextInput
-          placeholder="Celular"
-          style={styles.input}
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          ref={emailRef}
+          placeholder="Telefone Fixo"
+          style={{ ...styles.input, marginTop: 0 }}
+          value={telefoneFixo}
+          onChangeText={(texto) => setTelefoneFixo(texto)}
           blurOnSubmit={false}
           onSubmitEditing={() => senhaRef.current.focus()}
-        />
-        <TextInput
-          placeholder="Crie uma Senha"
-          style={styles.input}
-          secureTextEntry
-          value={senha}
-          onChangeText={(text) => setSenha(text)}
-          ref={senhaRef}
-          blurOnSubmit={false}
-          onSubmitEditing={() => confirmaSenhaRef.current.focus()}
-        />
-        <TextInput
-          placeholder="Confirme sua Senha"
-          style={styles.input}
-          secureTextEntry
-          value={confirmaSenha}
-          onChangeText={(text) => setConfirmaSenha(text)}
-          ref={confirmaSenhaRef}
-          onSubmitEditing={handleRegister}
         />
 
-        <TouchableOpacity style={styles.buttonregister} 
-         onPress={handleRegister}>
+        <TextInput
+          placeholder="Crie uma Senha"
+          style={{ ...styles.input, marginTop: 20 }}
+          onChangeText={(texto) => setPassword(texto)}
+          blurOnSubmit={false}
+          onSubmitEditing={() => confirmaSenhaRef.current.focus()}
+          underlineColorAndroid="transparent"
+          value={password}
+        />
+        <Text style={styles.errorMessage}>{senhaError}</Text>
+
+        <TextInput
+          placeholder="Confirme sua Senha"
+          style={{ ...styles.input, marginTop: 5 }}
+          secureTextEntry
+          value={confirmaSenha}
+          onChangeText={(texto) => setConfirmaSenha(texto)}
+        />
+        <Text style={styles.errorMessage}>{confirmaSenhaError}</Text>
+
+        <TouchableOpacity style={styles.buttonregister} onPress={cadastrar}>
           <Text style={styles.buttonregisterTitle}>REGISTRAR</Text>
         </TouchableOpacity>
       </View>
@@ -123,13 +144,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#38a69d',
   },
   containerHeader: {
-    marginTop: '14%',
-    marginBottom: '8%',
-    fontWeight: 'bold',
-    paddingStart: '8%',
+    justifyContent: 'center',
+    marginTop: -5,
+    marginBottom: 15,
+    paddingStart: 0,
   },
   message: {
-    left: -15,
     fontSize: 28,
     fontWeight: 'bold',
     color: '#fff',
@@ -143,9 +163,10 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     paddingStart: '8%',
     paddingEnd: '8%',
-    bottom: -50,
-    marginTop: -70,
-    
+    marginTop: 25,
+  },
+  errorMessage: {
+    color: 'red',
   },
   titleLogin: {
     fontSize: 20,
@@ -153,18 +174,18 @@ const styles = StyleSheet.create({
   },
   input: {
     borderBottomWidth: 1,
-    height: 40,
-    marginBottom: 12,
+    height: 35,
+    marginBottom: 5,
     fontSize: 16,
     marginTop: 15,
     paddingTop: 5,
   },
   buttonregister: {
-    marginTop: 50,
+    marginTop: 40,
     backgroundColor: 'green',
     width: '100%',
-    borderRadius: 10,
-    paddingVertical: 8,
+    borderRadius: 20,
+    paddingVertical: 15,
     justifyContent: 'center',
     alignItems: 'center',
   },

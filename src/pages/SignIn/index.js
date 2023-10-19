@@ -1,22 +1,20 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView,
+   TouchableWithoutFeedback, Keyboard, } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
 import { CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import firebase from 'firebase';
+
 
 export default function SignIn() {
   const navigation = useNavigation();
   const [rememberAccess, setRememberAccess] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -31,11 +29,19 @@ export default function SignIn() {
         </Animatable.View>
 
         <View style={styles.containerFormLogin}>
-          <Text style={styles.titleLogin}>Email</Text>
-          <TextInput placeholder="Digite um email." style={styles.input} />
+          <Text style={styles.titleLogin}>Email</Text>         
+          <TextInput placeholder="Digite um email." style={styles.input}
+           underlineColorndroid="transparent"
+           onChangeTest={(texto) => setEmail(texto)}
+           value={email}
+          />
 
           <Text style={styles.titleLogin}>Senha</Text>
-          <TextInput placeholder="Digite sua senha.." style={styles.input} secureTextEntry />
+          <TextInput placeholder="Digite sua senha.." style={styles.input} 
+           underlineColorndroid="transparent"
+           onChangeTest={(texto) => setPassword(texto)}
+           value={password}
+          />
 
           <TouchableOpacity
             style={styles.forgotPassword}
