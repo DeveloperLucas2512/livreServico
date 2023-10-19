@@ -15,6 +15,7 @@ export default function Register() {
   const [telefoneFixo, setTelefoneFixo] = useState('');
   const [nomeError, setNomeError] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [celularError, setCelularError] = useState('');
   const [senhaError, setSenhaError] = useState('');
   const [confirmaSenhaError, setConfirmaSenhaError] = useState('');
   const [telefoneFixoError, setTelefoneFixoError] = useState('');
@@ -22,14 +23,14 @@ export default function Register() {
   async function cadastrar() {
     setNomeError('');
     setEmailError('');
+    setCelularError('');
     setSenhaError('');
     setConfirmaSenhaError('');
-    setTelefoneFixoError('');
-
+   
     if (!nome || !celular || !email || !password || !confirmaSenha) {
       if (!nome) setNomeError('Campo obrigatório');
       if (!email) setEmailError('Campo obrigatório');
-      if (!celular) setEmailError('Campo obrigatório');
+      if (!celular) setCelularError('Campo obrigatório');
       if (!password) setSenhaError('Campo obrigatório');
       if (!confirmaSenha) setConfirmaSenhaError('Campo obrigatório');
       return;
@@ -101,7 +102,7 @@ export default function Register() {
           onChangeText={(texto) => setCelular(texto)}
           blurOnSubmit={false}          
         />
-        <Text style={styles.errorMessage}>{senhaError}</Text>
+        <Text style={styles.errorMessage}>{celularError}</Text>
 
         <TextInput
           placeholder="Telefone Fixo"
@@ -116,6 +117,7 @@ export default function Register() {
           style={{ ...styles.input, marginTop: 20 }}
           onChangeText={(texto) => setPassword(texto)}
           blurOnSubmit={false}
+          secureTextEntry
           underlineColorAndroid="transparent"
           value={password}
         />
@@ -124,9 +126,9 @@ export default function Register() {
         <TextInput
           placeholder="Confirme sua Senha"
           style={{ ...styles.input, marginTop: 5 }}
-          secureTextEntry
-          value={confirmaSenha}
           onChangeText={(texto) => setConfirmaSenha(texto)}
+          secureTextEntry
+          value={confirmaSenha}          
         />
         <Text style={styles.errorMessage}>{confirmaSenhaError}</Text>
 
