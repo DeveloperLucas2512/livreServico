@@ -29,6 +29,7 @@ export default function Register() {
     if (!nome || !celular || !email || !password || !confirmaSenha) {
       if (!nome) setNomeError('Campo obrigatório');
       if (!email) setEmailError('Campo obrigatório');
+      if (!celular) setEmailError('Campo obrigatório');
       if (!password) setSenhaError('Campo obrigatório');
       if (!confirmaSenha) setConfirmaSenhaError('Campo obrigatório');
       return;
@@ -48,7 +49,7 @@ export default function Register() {
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password);
       Alert.alert('Sucesso', 'Usuário criado com sucesso!');
-      //navigation.navigate('HomeWork');
+      navigation.navigate('HomeWork');
     } catch (error) {
       if (error.code === 'auth/invalid-email') {
         setEmailError('Email inválido');
