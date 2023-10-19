@@ -16,15 +16,17 @@ export default function SignIn() {
   async function logar() {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
-      // O login foi bem-sucedido, você pode navegar para a próxima tela ou realizar a ação desejada.
-      navigation.navigate('NextScreen');
+
+      navigation.navigate('Redirection');
     } catch (error) {
-      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-        // Usuário não encontrado ou senha incorreta
+      if (error.code !== 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+        
         Alert.alert('Erro', 'Usuário não cadastrado ou senha incorreta.');
+        return;
       } else {
-        // Outro erro, exibir mensagem genérica
+        
         Alert.alert('Erro', 'Algo deu errado. Por favor, tente novamente.');
+        return;
       }
     }
   }
