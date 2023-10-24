@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { useNavigation } from '@react-navigation/native';
 import Redirection from '../Redirection';
+import MapView from 'react-native-maps';
 
 export default function HomeWork() {
   const navigation = useNavigation();
@@ -76,21 +77,21 @@ export default function HomeWork() {
 
         {showLocationButtons && (
           <View style={styles.locationButtonContainer}>
-            <TouchableOpacity
+            <MapView
               style={styles.locationButton}
               onPress={() => setUseCustomLocation(false)} // Definir useCustomLocation como false para usar a localização atual
             >
               <Text style={styles.titleLocation}>BUSCAR PROFISSIONAL USANDO</Text>
               <Text style={styles.titleLocation}>MINHA LOCALIZAÇÃO ATUAL</Text>
-            </TouchableOpacity>
+            </MapView>
             <Text style={styles.OptionsSearch}>OU</Text>
-            <TouchableOpacity
+            <MapView
               style={styles.locationButton}
               onPress={() => setUseCustomLocation(true)} // Definir useCustomLocation como true para usar outra localização
             >
               <Text style={styles.titleLocation}>BUSCAR PROFISSIONAL USANDO</Text>
               <Text style={styles.titleLocation}>OUTRA LOCALIZAÇÃO</Text>
-            </TouchableOpacity>
+            </MapView>
             {useCustomLocation && ( // Renderizar o campo de entrada de texto somente se useCustomLocation for verdadeiro
               <View style={styles.customLocationContainer}>
                 <TextInput
