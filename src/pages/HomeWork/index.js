@@ -115,21 +115,19 @@ export default function HomeWork() {
           </View>
         )}
 
-      <View style={styles.footer}>
-
+        <View style={styles.footer}>
           <TouchableOpacity
             style={styles.footerItem}
-            onPress={() => navigation.navigate("Welcome")}>
+            onPress={() => navigation.navigate("Welcome")}
+          >
             <Icon name="home" size={24} />
             <Text>Início</Text>
           </TouchableOpacity>
                 
-          <TouchableOpacity style={styles.footerItem}
-          onPress={() => navigation.navigate("SignIn")}>
+          <TouchableOpacity style={styles.footerItem} onPress={() => navigation.navigate("SignIn")}>
             <Icon name="user" size={24} />
             <Text>Perfil</Text>
           </TouchableOpacity>
-          
         </View>
       </View>
     </TouchableWithoutFeedback>

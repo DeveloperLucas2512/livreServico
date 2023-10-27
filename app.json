@@ -32,6 +32,15 @@
       "eas": {
         "projectId": "2cb668ab-efbd-4a1c-babf-d804fa2ef83a"
       }
+    },
+
+    "extraMain": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCUsvwRqLjE_Uu8QSGxMT3scbBjmG9XXxU"
+        }
+      }
     }
   }
-}
+}  
+
