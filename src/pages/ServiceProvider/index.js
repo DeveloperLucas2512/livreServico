@@ -13,10 +13,12 @@ import { useNavigation } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import indexForm from './indexForm';
+import firebase from '../../services/firebaseConnection.js';
 
 
 export default function ServiceProvider() {
   const navigation = useNavigation();
+  const [nomeProfissional, setNomeProfissional] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [cpf, setCpf] = useState('');
   const [cnpj, setCnpj] = useState('');
@@ -97,13 +99,13 @@ export default function ServiceProvider() {
       </Animatable.View>
 
       <Animatable.View animation="fadeInUp" style={styles.containerFormRegister}>
-        <Text style={styles.title}>POR FAVOR ANEXAR UMA FOTO RECENTE</Text>
+        <Text style={styles.title_Initial}>POR FAVOR ANEXAR UMA FOTO RECENTE</Text>
         <View style={styles.imagePicker}>
           <View style={styles.imageFrame}>
             {profileImage ? (
               <Image source={{ uri: profileImage }} style={styles.profileImage} />
             ) : (
-              <Text style={styles.imagePickerText}>Clique para escolher uma imagem</Text>
+              <Text style={styles.imagePickerText}>Anexar Foto</Text>
             )}
           </View>
           <TouchableOpacity onPress={openImagePicker} style={styles.chooseImageButton}>
@@ -121,6 +123,8 @@ export default function ServiceProvider() {
         <TextInput
           placeholder="Digite o nome do profissional"
           style={styles.input}
+          onChangeText={(text) => setNomeProfissional(text)}
+          value={nomeProfissional}
         />
     
         <Text style={styles.title}>Data Nascimento</Text>
@@ -204,6 +208,13 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     paddingHorizontal: 16,
     paddingBottom: 20,
+  },
+
+  title_Initial: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    fontSize: 16,
+    marginTop: 20,
   },
 
   title: {

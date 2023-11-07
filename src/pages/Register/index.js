@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  ScrollView,
+} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -19,6 +27,7 @@ export default function Register() {
   const [senhaError, setSenhaError] = useState('');
   const [confirmaSenhaError, setConfirmaSenhaError] = useState('');
   const [telefoneFixoError, setTelefoneFixoError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   async function cadastrar() {
     setNomeError('');
@@ -26,7 +35,7 @@ export default function Register() {
     setCelularError('');
     setSenhaError('');
     setConfirmaSenhaError('');
-   
+
     if (!nome || !celular || !email || !password || !confirmaSenha) {
       if (!nome) setNomeError('Campo obrigatório');
       if (!email) setEmailError('Campo obrigatório');
@@ -78,7 +87,7 @@ export default function Register() {
       <View style={styles.containerFormRegister}>
         <TextInput
           style={{ ...styles.input, marginTop: 30 }}
-          underlineColorAndroid='transparent'
+          underlineColorAndroid="transparent"
           onChangeText={(texto) => setNome(texto)}
           placeholder="Digite seu nome completo"
           value={nome}
@@ -88,7 +97,7 @@ export default function Register() {
         <TextInput
           placeholder="Digite um email"
           style={{ ...styles.input, marginTop: 0 }}
-          blurOnSubmit={false}          
+          blurOnSubmit={false}
           underlineColorAndroid="transparent"
           onChangeText={(texto) => setEmail(texto)}
           value={email}
@@ -100,7 +109,7 @@ export default function Register() {
           style={{ ...styles.input, marginTop: 0 }}
           value={celular}
           onChangeText={(texto) => setCelular(texto)}
-          blurOnSubmit={false}          
+          blurOnSubmit={false}
         />
         <Text style={styles.errorMessage}>{celularError}</Text>
 
@@ -110,25 +119,30 @@ export default function Register() {
           value={telefoneFixo}
           onChangeText={(texto) => setTelefoneFixo(texto)}
           blurOnSubmit={false}
-          />
-
-        <TextInput
-          placeholder="Crie uma Senha"
-          style={{ ...styles.input, marginTop: 20 }}
-          onChangeText={(texto) => setPassword(texto)}
-          blurOnSubmit={false}
-          secureTextEntry
-          underlineColorAndroid="transparent"
-          value={password}
         />
-        <Text style={styles.errorMessage}>{senhaError}</Text>
+
+        <View style={{ position: 'relative' }}>
+          <TextInput
+            placeholder="Crie uma Senha"
+            style={styles.input}
+            onChangeText={(texto) => setPassword(texto)}
+            secureTextEntry={!showPassword}
+            value={password}
+          />
+          <TouchableOpacity
+            style={styles.showPasswordButton}
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            <Icon name={showPassword ? 'eye' : 'eye-slash'} size={20} />
+          </TouchableOpacity>
+        </View>
 
         <TextInput
           placeholder="Confirme sua Senha"
-          style={{ ...styles.input, marginTop: 5 }}
+          style={styles.input}
           onChangeText={(texto) => setConfirmaSenha(texto)}
-          secureTextEntry
-          value={confirmaSenha}          
+          secureTextEntry={!showPassword}
+          value={confirmaSenha}
         />
         <Text style={styles.errorMessage}>{confirmaSenhaError}</Text>
 
@@ -140,11 +154,15 @@ export default function Register() {
       <View style={styles.footer}>
         <TouchableOpacity
           style={styles.footerItem}
-          onPress={() => navigation.navigate('Welcome')}>
+          onPress={() => navigation.navigate('Welcome')}
+        >
           <Icon name="home" size={24} />
           <Text>Início</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerItem} onPress={() => navigation.navigate('SignIn')}>
+        <TouchableOpacity
+          style={styles.footerItem}
+          onPress={() => navigation.navigate('SignIn')}
+        >
           <Icon name="user" size={24} />
           <Text>Perfil</Text>
         </TouchableOpacity>
@@ -222,5 +240,10 @@ const styles = StyleSheet.create({
   },
   footerItem: {
     alignItems: 'center',
+  },
+  showPasswordButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
   },
 });

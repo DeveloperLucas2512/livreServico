@@ -37,10 +37,12 @@
     "extraMain": {
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyCUsvwRqLjE_Uu8QSGxMT3scbBjmG9XXxU"
+          "apiKey": "AIzaSyCUsvwRqLjE_Uu8QSGxMT3scbBjmG9XXxU"         
+           
         }
       }
     }
   }
+  
 }  
 

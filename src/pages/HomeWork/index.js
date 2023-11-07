@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Platform, PermissionsAndroid, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { useNavigation } from '@react-navigation/native';
 import Redirection from '../Redirection';
 import MapView from 'react-native-maps';
+
+const { width, height } = Dimensions.get('screen');
 
 export default function HomeWork() {
   const navigation = useNavigation();
@@ -36,10 +38,28 @@ export default function HomeWork() {
 
   const dropdownOptions = ['Selecione um serviço', ...services];
 
+  const requestLocationPermission = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          console.log("Permissão de localização concedida");
+          // Você pode chamar a função para buscar a localização atual aqui
+        } else {
+          console.log("Permissão de localização negada");
+        }
+      } catch (error) {
+        console.error("Erro ao solicitar permissão de localização:", error);
+      }
+    }
+  };
+
   return (
     <TouchableWithoutFeedback>
       <View style={styles.container}>
-        <View style={styles.titleContainer}>
+      <View style={styles.titleContainer}>
           <Text style={styles.title}>DIGITE O SERVIÇO QUE DESEJA ENCONTRAR OU ACESSE A BUSCA RÁPIDA!</Text>
         </View>
 
@@ -74,25 +94,38 @@ export default function HomeWork() {
             }}
           />
         </View>
-
+        
         {showLocationButtons && (
           <View style={styles.locationButtonContainer}>
             <MapView
-              style={styles.locationButton}
-              onPress={() => setUseCustomLocation(false)} // Definir useCustomLocation como false para usar a localização atual
+              onMapReady={requestLocationPermission}
+              style={{ width: width, height: height }}
+              initialRegion={{
+                latitude: 37.78825,
+                longitude: -122.4324,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
+              onPress={() => setUseCustomLocation(false)}
             >
               <Text style={styles.titleLocation}>BUSCAR PROFISSIONAL USANDO</Text>
               <Text style={styles.titleLocation}>MINHA LOCALIZAÇÃO ATUAL</Text>
             </MapView>
             <Text style={styles.OptionsSearch}>OU</Text>
             <MapView
-              style={styles.locationButton}
-              onPress={() => setUseCustomLocation(true)} // Definir useCustomLocation como true para usar outra localização
+              style={{ width: width, height: height }}
+              initialRegion={{
+                latitude: 37.78825,
+                longitude: -122.4324,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
+              onPress={() => setUseCustomLocation(true)}
             >
               <Text style={styles.titleLocation}>BUSCAR PROFISSIONAL USANDO</Text>
               <Text style={styles.titleLocation}>OUTRA LOCALIZAÇÃO</Text>
             </MapView>
-            {useCustomLocation && ( // Renderizar o campo de entrada de texto somente se useCustomLocation for verdadeiro
+            {useCustomLocation && (
               <View style={styles.customLocationContainer}>
                 <TextInput
                   style={styles.customLocationInput}
@@ -115,7 +148,7 @@ export default function HomeWork() {
           </View>
         )}
 
-        <View style={styles.footer}>
+<View style={styles.footer}>
           <TouchableOpacity
             style={styles.footerItem}
             onPress={() => navigation.navigate("Welcome")}

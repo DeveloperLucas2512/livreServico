@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView,
-   TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
 import { CheckBox } from 'react-native-elements';
@@ -14,15 +13,15 @@ export default function SignIn() {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [senhaError, setSenhaError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   async function logar() {
+    setEmailError('');
+    setSenhaError('');
 
-    setEmailError('');   
-    setSenhaError('');    
-   
-    if ( !email || !password ) {
-      if (!email) setEmailError('Campo obrigatório');      
-      if (!password) setSenhaError('Campo obrigatório');      
+    if (!email || !password) {
+      if (!email) setEmailError('Campo obrigatório');
+      if (!password) setSenhaError('Campo obrigatório');
       return;
     }
 
@@ -32,16 +31,14 @@ export default function SignIn() {
     }
 
     try {
+      //firebase.auth().
       await firebase.auth().signInWithEmailAndPassword(email, password);
-
       navigation.navigate('Redirection');
     } catch (error) {
       if (error.code !== 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-        
         Alert.alert('Erro', 'Usuário não cadastrado ou senha incorreta.');
         return;
       } else {
-        
         Alert.alert('Erro', 'Algo deu errado. Por favor, tente novamente.');
         return;
       }
@@ -49,10 +46,7 @@ export default function SignIn() {
   }
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.container}
-      keyboardShouldPersistTaps="handled"
-    >
+    <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
       <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
         <Text style={styles.message}>SEJA BEM-VINDO(a)</Text>
         <Text style={styles.message}>LIVRE SERVIÇOS IMEDIATOS</Text>
@@ -67,40 +61,43 @@ export default function SignIn() {
           onChangeText={(texto) => setEmail(texto)}
           value={email}
         />
-       <Text style={styles.errorMessage}>{emailError}</Text>
+        <Text style={styles.errorMessage}>{emailError}</Text>
 
         <Text style={styles.titleLogin}>Senha</Text>
-        <TextInput
-          placeholder="Digite sua senha.."
-          style={styles.input}
-          underlineColorAndroid="transparent"
-          onChangeText={(texto) => setPassword(texto)}
-          secureTextEntry
-          value={password}
-        />
-         <Text style={styles.errorMessage}>{senhaError}</Text>
+        <View style={styles.passwordInput}>
+          <TextInput
+            placeholder="Digite sua senha.."
+            style={styles.passwordInputText}
+            underlineColorAndroid="transparent"
+            onChangeText={(texto) => setPassword(texto)}
+            secureTextEntry={!showPassword}
+            value={password}
+          />
+          <TouchableOpacity
+            style={styles.passwordVisibilityButton}
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            <Icon name={showPassword ? 'eye' : 'eye-slash'} size={20} color="black" />
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.errorMessage}>{senhaError}</Text>
 
-        <TouchableOpacity
-          style={styles.forgotPassword}
-          onPress={() => navigation.navigate('PasswordReset')}>
+        <TouchableOpacity style={styles.forgotPassword} onPress={() => navigation.navigate('PasswordReset')}>
           <Text style={{ color: 'red' }}>Esqueci minha Senha</Text>
         </TouchableOpacity>
 
         <View style={styles.rememberAccessContainer}>
-            <CheckBox
-              containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
-              title="Lembrar acesso"
-              checked={rememberAccess}
-              onPress={() => setRememberAccess(!rememberAccess)}
-              textStyle={{ color: 'black' }}
-              checkedColor="green"
-            />
-          </View>
+          <CheckBox
+            containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
+            title="Lembrar acesso"
+            checked={rememberAccess}
+            onPress={() => setRememberAccess(!rememberAccess)}
+            textStyle={{ color: 'black' }}
+            checkedColor="green"
+          />
+        </View>
 
-        <TouchableOpacity
-          style={styles.buttonRegister}
-          onPress={() => navigation.navigate('Register')}
-        >
+        <TouchableOpacity style={styles.buttonRegister} onPress={() => navigation.navigate('Register')}>
           <Text style={styles.buttonRegisterText}>Não possui uma conta? Cadastre-se.</Text>
         </TouchableOpacity>
 
@@ -109,10 +106,7 @@ export default function SignIn() {
         </TouchableOpacity>
 
         {/* Botão "Acessar usando meu Id Apple" */}
-        <TouchableOpacity
-          style={styles.appleButtonContainer}
-          onPress={() => console.log('')}
-        >
+        <TouchableOpacity style={styles.appleButtonContainer} onPress={() => console.log('')}>
           <TouchableOpacity style={styles.appleButton} onPress={() => console.log('')}>
             <Icon name="apple" size={20} color="white" style={styles.icon} />
             <Text style={styles.appleButtonText}>ACESSAR USANDO MEU ID APPLE</Text>
@@ -120,10 +114,7 @@ export default function SignIn() {
         </TouchableOpacity>
 
         {/* Botão "Acessar usando conta G-mail" */}
-        <TouchableOpacity
-          style={styles.gmailButtonContainer}
-          onPress={() => console.log('')}
-        >
+        <TouchableOpacity style={styles.gmailButtonContainer} onPress={() => console.log('')}>
           <TouchableOpacity style={styles.gmailButton} onPress={() => console.log('')}>
             <Text style={styles.gmailButtonText}>ACESSAR USANDO CONTA G-MAIL</Text>
           </TouchableOpacity>
@@ -166,7 +157,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     paddingStart: '8%',
     paddingEnd: '8%',
-    paddingBottom: 50, // Adicionei paddingBottom para evitar que os últimos elementos fiquem cobertos pelo teclado
+    paddingBottom: 50,
   },
   titleLogin: {
     fontSize: 20,
@@ -179,6 +170,23 @@ const styles = StyleSheet.create({
     height: 30,
     marginBottom: 15,
     fontSize: 16,
+  },
+
+  passwordInput: {
+    borderBottomWidth: 1,
+    height: 30,
+    marginBottom: 15,
+    fontSize: 16,
+    flexDirection: 'row',
+  },
+
+  passwordInputText: {
+    flex: 1,
+  },
+
+  passwordVisibilityButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   forgotPassword: {
