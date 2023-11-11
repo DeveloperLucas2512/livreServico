@@ -178,6 +178,19 @@ export default function ServiceProvider() {
             <Icon style={styles.continueIcon} name="arrow-forward" size={25} color="#fff" />
           </View>
         </TouchableOpacity>
+
+        <Text style={styles.titleTop}>Categoria de serviço</Text>
+        <TextInput
+          placeholder="Categoria de serviço 1"
+          style={styles.input}
+          onChangeText={(text) => setCategoriaServico(text)}
+          value={categoriaServico}
+        />
+
+
+
+
+
       </Animatable.View>
     </ScrollView>
   );
