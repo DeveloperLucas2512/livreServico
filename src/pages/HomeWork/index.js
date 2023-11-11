@@ -5,8 +5,37 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import { useNavigation } from '@react-navigation/native';
 import Redirection from '../Redirection';
 import MapView from 'react-native-maps';
+//import Geolocation from 'react-native-community/geolocation';
+
 
 const { width, height } = Dimensions.get('screen');
+
+const requestLocationPermission = async () => {
+  if (Platform.OS === 'android') {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("Permissão de localização concedida");
+        Geolocation.getCurrentPosition(
+          (position) => {
+            console.log("Localização atual:", position);
+            // Faça algo com a localização atual aqui
+          },
+          (error) => {
+            console.error("Erro ao obter a localização atual:", error);
+          }
+        );
+      } else {
+        console.log("Permissão de localização negada");
+      }
+    } catch (error) {
+      console.error("Erro ao solicitar permissão de localização:", error);
+    }
+  }
+};
+
 
 export default function HomeWork() {
   const navigation = useNavigation();

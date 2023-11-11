@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import ServiceProvider from '../ServiceProvider';
 import * as Animatable from 'react-native-animatable';
 
 export default function UpLoadImageGeneralServices() {
